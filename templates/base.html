@@ -28,7 +28,7 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         {% if user %}
-                            <li>{{user.name}} (<a class="login-link" href="/logout">Log Out</a>)
+                            <li>{{user.username}} (<a class="login-link" href="/logout">Log Out</a>)
                             <li><a href="/newpost">New Post</a></li>
                         {% else %}
                         <li><a href="/login">Log In</a></li>
