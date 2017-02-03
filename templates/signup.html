@@ -1,39 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Signup</h1>
-<form method="post">
-    <table>
-        <tr>
-            <td class="label">Username</td>
-            <td>
-                <input type="text" name="username" value="{{username}}">
-            </td>
-            <td class="error">{{username_error}}</td>
-        </tr>
-        <tr>
-            <td class="label">Password</td>
-            <td>
-                <input type="password" name="password">
-            </td>
-            <td class="error">{{password_error}}</td>
-        </tr>
-        <tr>
-            <td class="label">Verify Password</td>
-            <td>
-                <input type="password" name="verify">
-            </td>
-            <td class="error">{{verify_error}}</td>
-        </tr>
-        <tr>
-            <td class="label">Email (optional)</td>
-            <td>
-                <input type="text" name="email" value="{{email}}">
-            </td>
-            <td class="error">{{email_error}}</td>
-        </tr>
-    </table>
-    <input type="submit">
-</form>
+<div class="row">
+    <h2>Create an Account</h2>
+</div>
+<div class="row">
+    <form role="forme" class="form-line" method="post">
+        <div class="form-group">
+            <lable for="input-username" class="sr-only">Username</lable>
+            <input type="text" name="username" value="{{username}}" class="form-control" id="input-username">
+            <p class="error">{{username_error}}</p>
+        </div>
+        <div class="form-group">
+            <lable for="input-password" class="sr-only">Password</lable>
+            <input type="text" name="password" class="form-control" id="input-password">
+            <p class="error">{{password_error}}</p>
+        </div>
+        <div class="form-group">
+            <lable for="input-verify" class="sr-only">Verify Password</lable>
+            <input type="password" name="verify" class="form-control" id="input-verify">
+            <p class="error">{{verify_error}}</p>
+        </div>
+        <div class="form-group">
+            <lable for="input-email" class="sr-only">Email</lable>
+            <input type="text" name="email" value="{{email}}" class="form-control" id="input-email">
+            <p class="error">{{email_error}}</p>
+        </div>
+        <input type="submit">
+    </form>
+</div>
 
 {% endblock %}

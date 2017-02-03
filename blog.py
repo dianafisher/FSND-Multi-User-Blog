@@ -120,6 +120,7 @@ class SignupHandler(Handler):
             params['username_error'] = "That's not a valid username."
             have_error = True
 
+        print 'checking password {}'.format(self.password)
         # check for valid password
         if not valid_password(self.password):
             params['password_error'] = "That's not a valid password."
