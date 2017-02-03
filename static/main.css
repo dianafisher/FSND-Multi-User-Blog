@@ -29,14 +29,11 @@ a:focus {
   text-decoration: underline;
 }
 
+header, nav, footer, section, article, div {
+  box-sizing: border-box;
+}
+
 h1 {
-  /*font-weight: 100;
-  white-space: nowrap;
-  font-size: 4em;
-  margin: 0;
-  text-align: right;*/
-  /*background-color: #ddd;*/
-    /*color:#888;*/
     color: #708fc1;
     margin:10px;
     height: 50px;
@@ -101,6 +98,14 @@ ul {
   display: flex;
   flex-wrap: wrap;
 }
+
+.box {
+    width: 100%;
+}
+
+/*
+ * Grid
+ */
 
 .grid {
   margin: 0 auto;
@@ -170,14 +175,42 @@ ul {
     margin-left: 50%;
 }
 
-.box {
-    width: 100%;
+/*
+ * Header
+ */
+
+ .header {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  min-height: 56px;
+  transition: min-height 0.3s;
+}
+
+.header a:hover, a:focus {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.header-inner {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header__logo {
+  height: 72px;
+  margin-right: 1em;
+  vertical-align: top;
+  margin-top: 12px;
+}
+
+.header-title {
+  display: inline-block;
 }
 
 .logo {
   width: 100px;
   float: left;
-  margin-top: -20px;
+  margin-left: 25px;
 }
 
 .banner {
