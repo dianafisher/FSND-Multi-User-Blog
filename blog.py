@@ -8,7 +8,6 @@ from string import letters
 import webapp2
 import jinja2
 
-# from google.appengine.ext import db
 from google.appengine.ext import ndb
 
 from user import User
@@ -78,7 +77,6 @@ class Handler(webapp2.RequestHandler):
         return cookie_val and check_secure_val(cookie_val)
 
     def login(self, user):
-        # self.set_secure_cookie('user_id', str(user.key().id()))
         self.set_secure_cookie('user_id', user.key.urlsafe())
 
     def logout(self):
@@ -90,10 +88,6 @@ class Handler(webapp2.RequestHandler):
         uid = self.read_secure_cookie('user_id')
         print 'uid = {}'.format(uid)
         self.user = uid and ndb.Key(urlsafe=uid).get()
-        # if uid:
-        #     key = ndb.Key(urlsafe=uid)
-        #     self.user = key.get()
-        #     print 'self.user = {}'.format(self.user)
 
 """
     Handler for the front (main) page of the blog which lists all posts.

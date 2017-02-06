@@ -1,4 +1,3 @@
-# from google.appengine.ext import db
 from google.appengine.ext import ndb
 import hashlib
 import hmac
@@ -19,7 +18,6 @@ def valid_pw(name, password, h):
     return h == make_pw_hash(name, password, salt)
 
 def users_key(group = 'default'):
-    # return db.Key.from_path('users', group)
     return ndb.Key('users', group)
 
 class User(ndb.Model):
@@ -33,7 +31,6 @@ class User(ndb.Model):
 
     @classmethod
     def by_name(cls, name):
-        # u = User.all().filter('username =', name).get()
         u = User.query().filter(User.username == name).get()
 
         return u

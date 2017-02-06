@@ -1,5 +1,4 @@
 from google.appengine.ext import ndb
-# from google.appengine.ext import db
 
 """
 post.py - This file contains the class definitions for the Post entity.
