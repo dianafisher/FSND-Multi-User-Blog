@@ -8,27 +8,29 @@ from string import letters
 import webapp2
 import jinja2
 
-from google.appengine.ext import db
+# from google.appengine.ext import db
+from google.appengine.ext import ndb
 
 from user import User
 from post import Post
 
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
-                               autoescape = True)
+TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader = jinja2.FileSystemLoader(TEMPLATE_DIR),
+    autoescape = True)
 
 
-secret = 'loki'
+SECRET = 'loki'
 
 """
     Utility methods
 """
 def render_str(template, **params):
-    t = jinja_env.get_template(template)
+    t = JINJA_ENVIRONMENT.get_template(template)
     return t.render(params)
 
 def make_secure_val(val):
-    return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
+    return '%s|%s' % (val, hmac.new(SECRET, val).hexdigest())
 
 def check_secure_val(secure_val):
     val = secure_val.split('|')[0]
@@ -76,7 +78,8 @@ class Handler(webapp2.RequestHandler):
         return cookie_val and check_secure_val(cookie_val)
 
     def login(self, user):
-        self.set_secure_cookie('user_id', str(user.key().id()))
+        # self.set_secure_cookie('user_id', str(user.key().id()))
+        self.set_secure_cookie('user_id', user.key.urlsafe())
 
     def logout(self):
         # Clear out the cookie.
@@ -85,7 +88,12 @@ class Handler(webapp2.RequestHandler):
     def initialize(self, *a, **kw):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
-        self.user = uid and User.by_id(int(uid))
+        print 'uid = {}'.format(uid)
+        self.user = uid and ndb.Key(urlsafe=uid).get()
+        # if uid:
+        #     key = ndb.Key(urlsafe=uid)
+        #     self.user = key.get()
+        #     print 'self.user = {}'.format(self.user)
 
 """
     Handler for the front (main) page of the blog which lists all posts.
@@ -93,7 +101,7 @@ class Handler(webapp2.RequestHandler):
 class FrontHandler(Handler):
 
     def get(self):
-        posts = Post.all().order('-created')
+        posts = Post.query().order(-Post.created)
         self.render("front.html", posts = posts)
 
 """
@@ -190,7 +198,7 @@ class LogoutHandler(Handler):
         self.redirect('/signup')
 
 """
-    Handler for the creation of new posts.
+    Handler for creation of new posts.
 """
 class NewPostHandler(Handler):
 

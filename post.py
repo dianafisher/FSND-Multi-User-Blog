@@ -1,11 +1,15 @@
+from google.appengine.ext import ndb
+# from google.appengine.ext import db
 
-from google.appengine.ext import db
+"""
+post.py - This file contains the class definitions for the Post entity.
+"""
 
-class Post(db.Model):
-    title = db.StringProperty(required = True)
-    content = db.TextProperty(required = True)
-    created = db.DateTimeProperty(auto_now_add = True)
-    last_modified = db.DateTimeProperty(auto_now = True)
+class Post(ndb.Model):
+    title = ndb.StringProperty(required = True)
+    content = ndb.TextProperty(required = True)
+    created = ndb.DateTimeProperty(auto_now_add = True)
+    last_modified = ndb.DateTimeProperty(auto_now = True)
 
     def render(self):
         # replace new line characters with breaks

@@ -1,4 +1,5 @@
-from google.appengine.ext import db
+# from google.appengine.ext import db
+from google.appengine.ext import ndb
 import hashlib
 import hmac
 import random
@@ -18,12 +19,13 @@ def valid_pw(name, password, h):
     return h == make_pw_hash(name, password, salt)
 
 def users_key(group = 'default'):
-    return db.Key.from_path('users', group)
+    # return db.Key.from_path('users', group)
+    return ndb.Key('users', group)
 
-class User(db.Model):
-    username = db.StringProperty(required=True)
-    password_hash = db.StringProperty(required=True)
-    email = db.StringProperty()
+class User(ndb.Model):
+    username = ndb.StringProperty(required=True)
+    password_hash = ndb.StringProperty(required=True)
+    email = ndb.StringProperty()
 
     @classmethod
     def by_id(cls, uid):
@@ -31,7 +33,9 @@ class User(db.Model):
 
     @classmethod
     def by_name(cls, name):
-        u = User.all().filter('username =', name).get()
+        # u = User.all().filter('username =', name).get()
+        u = User.query().filter(User.username == name).get()
+
         return u
 
     @classmethod
