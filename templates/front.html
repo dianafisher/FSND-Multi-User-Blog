@@ -4,20 +4,8 @@
 
 <div class="row">
     {% for post in posts %}
-    <div class="row">
-    <div class="post col-12">
-        <div class="post-header row">
-            <div class="post-subject col-6">{{post.subject}}</div>
-            <div class="post-username col-3">by {{post.user.get().username}} </div>
-            <div class="post-date col-3">{{post.created.strftime("%b %d, %Y")}}</div>
-        </div>
-        <pre class="post-content">{{post.content | safe }}</pre>
-    </div>
-    </div>
+        {{ post.render() | safe }}
     {% endfor %}
-
-
-
 
 </div>
 {% endblock %}

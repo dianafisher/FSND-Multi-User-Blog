@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+import utils
 
 """
 post.py - This file contains the class definitions for the Post entity.
@@ -22,4 +23,4 @@ class Post(ndb.Model):
     def render(self):
         # replace new line characters with breaks
         self.__render_text = self.content.replace('\n', '<br>')
-        return render('post.html', post=self)
+        return utils.render_str('post.html', post=self)

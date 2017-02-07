@@ -1,9 +1,7 @@
-{% extends "base.html" %}
-
 {% block content %}
     <div class="post col-12">
         <div class="post-header row">
-            <div class="post-subject col-6">{{post.subject}}</div>
+            <a href="/{{post.key.id()}}" class="btn-link"><h2 class="post-subject col-6">{{post.subject}}</h2></a>
             <div class="post-username col-3">by {{post.user.get().username}} </div>
             <div class="post-date col-3">{{post.created.strftime("%b %d, %Y")}}</div>
         </div>
