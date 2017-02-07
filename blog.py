@@ -15,8 +15,8 @@ from post import Post
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader = jinja2.FileSystemLoader(TEMPLATE_DIR),
-    autoescape = True)
+    loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
+    autoescape=True)
 
 
 SECRET = 'loki'
@@ -24,12 +24,16 @@ SECRET = 'loki'
 """
     Utility methods
 """
+
+
 def render_str(template, **params):
     t = JINJA_ENVIRONMENT.get_template(template)
     return t.render(params)
 
+
 def make_secure_val(val):
     return '%s|%s' % (val, hmac.new(SECRET, val).hexdigest())
+
 
 def check_secure_val(secure_val):
     val = secure_val.split('|')[0]
@@ -40,14 +44,20 @@ def check_secure_val(secure_val):
     Methods to check validity of inputs
 """
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+
+
 def valid_username(username):
     return username and USER_RE.match(username)
 
 PASS_RE = re.compile(r"^.{3,20}$")
+
+
 def valid_password(password):
     return password and PASS_RE.match(password)
 
-EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+
+
 def valid_email(email):
     return not email or EMAIL_RE.match(email)
 
@@ -55,6 +65,8 @@ def valid_email(email):
 """
     Base class for all handlers
 """
+
+
 class Handler(webapp2.RequestHandler):
 
     def write(self, *a, **kw):
@@ -89,18 +101,24 @@ class Handler(webapp2.RequestHandler):
         print 'uid = {}'.format(uid)
         self.user = uid and ndb.Key(urlsafe=uid).get()
 
+
 """
     Handler for the front (main) page of the blog which lists all posts.
 """
+
+
 class FrontHandler(Handler):
 
     def get(self):
         posts = Post.query().order(-Post.created)
-        self.render("front.html", posts = posts)
+        self.render("front.html", posts=posts)
+
 
 """
     Handler for the sign up page.
 """
+
+
 class SignupHandler(Handler):
 
     def get(self):
@@ -114,8 +132,7 @@ class SignupHandler(Handler):
         self.email = self.request.get("email")
 
         # create a dictionary to hold any error messages
-        params = dict(username = self.username,
-                        email = self.email)
+        params = dict(username=self.username, email=self.email)
 
         # check for valid username
         if not valid_username(self.username):
@@ -129,7 +146,8 @@ class SignupHandler(Handler):
             have_error = True
         else:
             # check that passwords match
-            print 'password: %s, verified: %s' % (self.password, self.verified_password)
+            print 'password: %s, verified: %s' % \
+                (self.password, self.verified_password)
 
             if not self.password == self.verified_password:
                 params['verify_error'] = "Passwords do not match!"
@@ -164,6 +182,8 @@ class SignupHandler(Handler):
 """
     Handler for the login page.
 """
+
+
 class LoginHandler(Handler):
 
     def get(self):
@@ -179,12 +199,15 @@ class LoginHandler(Handler):
             self.redirect('/welcome')
         else:
             msg = 'Invalid login'
-            self.render('login.html', login_error = msg)
+            self.render('login.html', login_error=msg)
 
 
 """
-    Handler for logging out.  Clears the current cookie and redirects to the signup page.
+    Handler for logging out.
+    Clears the current cookie and redirects to the signup page.
 """
+
+
 class LogoutHandler(Handler):
 
     def get(self):
@@ -194,24 +217,30 @@ class LogoutHandler(Handler):
 """
     Handler for creation of new posts.
 """
+
+
 class NewPostHandler(Handler):
 
     def get(self):
-        # If the user is logged in, show the new post page.  Otherwise, show the login page.
+        """If the user is logged in, show the new post page.
+        Otherwise, show the login page."""
         if self.user:
             self.render('newpost.html')
         else:
             self.redirect("/login")
+
 """
-    Handler for the welcome page which is shown after an account has been created.
-    If a user attempts to view this page without signing in first, then they are redirected
-    to the sign in page.
+    Handler for the welcome page shown after an account has been created.
+    If a user attempts to view this page without signing in first,
+    then they are redirected to the sign in page.
 """
+
+
 class WelcomeHandler(Handler):
 
     def get(self):
         if self.user:
-            self.render('welcome.html', username = self.user.username)
+            self.render('welcome.html', username=self.user.username)
         else:
             self.redirect('/signup')
 
