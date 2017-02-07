@@ -40,6 +40,32 @@ def check_secure_val(secure_val):
     if secure_val == make_secure_val(val):
         return val
 
+
+def get_by_urlsafe(urlsafe, model):
+    """Returns an ndb.Model entity that the urlsafe key points to. Checks
+        that the type of entity returned is of the correct kind. Raises an
+        error if the key String is malformed or the entity is of the incorrect
+        kind
+    Args:
+        urlsafe: A urlsafe key string
+        model: The expected entity kind
+    Returns:
+        The entity that the urlsafe Key string points to or None if no entity
+        exists.
+    Raises:
+        ValueError
+    """
+
+    key = ndb.Key(urlsafe=urlsafe)
+    print '---> key: {}'.format(key)
+    entity = key.get()
+    if not entity:
+        return None
+    if not isinstance(entity, model):
+        raise ValueError('Incorrect Kind')
+    return entity
+
+
 """
     Methods to check validity of inputs
 """
@@ -63,6 +89,8 @@ def valid_email(email):
 
 
 """
+    Handler
+
     Base class for all handlers
 """
 
@@ -92,17 +120,19 @@ class Handler(webapp2.RequestHandler):
         self.set_secure_cookie('user_id', user.key.urlsafe())
 
     def logout(self):
-        # Clear out the cookie.
+        """Clears out the cookie from the header."""
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
 
     def initialize(self, *a, **kw):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
-        print 'uid = {}'.format(uid)
+        # print 'uid = {}'.format(uid)
         self.user = uid and ndb.Key(urlsafe=uid).get()
 
 
 """
+    FrontHandler
+
     Handler for the front (main) page of the blog which lists all posts.
 """
 
@@ -115,6 +145,8 @@ class FrontHandler(Handler):
 
 
 """
+    SignupHandler
+
     Handler for the sign up page.
 """
 
@@ -139,7 +171,6 @@ class SignupHandler(Handler):
             params['username_error'] = "That's not a valid username."
             have_error = True
 
-        print 'checking password {}'.format(self.password)
         # check for valid password
         if not valid_password(self.password):
             params['password_error'] = "That's not a valid password."
@@ -180,6 +211,8 @@ class SignupHandler(Handler):
                 self.redirect("/welcome")
 
 """
+    LoginHandler
+
     Handler for the login page.
 """
 
@@ -203,8 +236,10 @@ class LoginHandler(Handler):
 
 
 """
+    LogoutHandler
+
     Handler for logging out.
-    Clears the current cookie and redirects to the signup page.
+    Clears the cookie and redirects to the signup page.
 """
 
 
@@ -215,6 +250,8 @@ class LogoutHandler(Handler):
         self.redirect('/signup')
 
 """
+    NewPostHandler
+
     Handler for creation of new posts.
 """
 
@@ -229,7 +266,53 @@ class NewPostHandler(Handler):
         else:
             self.redirect("/login")
 
+    def post(self):
+        if not self.user:
+            self.redirect('/')
+
+        subject = self.request.get('subject')
+        content = self.request.get('content')
+
+        if subject and content:
+            # create a new post
+            post = Post.new_post(user=self.user,
+                                 subject=subject,
+                                 content=content)
+
+            # redirect to the new post.
+            self.redirect('/{}'.format(post.key.id()))
+        else:
+            error = "subject and content, please!"
+            self.render("newpost.html",
+                        subject=subject,
+                        content=content,
+                        error=error)
+
+
 """
+    PostHandler
+
+    Handler for individual blog posts.
+"""
+
+
+class PostHandler(Handler):
+
+    def get(self, post_id):
+        print 'looking for post with id: {}'.format(post_id)
+        post = Post.get_by_id(int(post_id))
+        print 'post: {}'.format(post)
+
+        # show 404 error page if the post cannot be found.
+        if not post:
+            self.error(404)
+            return
+        self.render("post.html", post=post)
+
+
+"""
+    WelcomeHandler
+
     Handler for the welcome page shown after an account has been created.
     If a user attempts to view this page without signing in first,
     then they are redirected to the sign in page.
@@ -244,14 +327,6 @@ class WelcomeHandler(Handler):
         else:
             self.redirect('/signup')
 
-        # cookie_str = self.request.cookies.get('user_id')
-        # if cookie_str:
-        #     cookie_val = check_secure_val(cookie_str)
-        #     print "cookie = {}".format(cookie_val)
-        #     self.render('welcome.html', username=cookie_val)
-        # else:
-        #     # redirect to the signup page
-        #     self.redirect('/signup')
 
 app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/signup', SignupHandler),
@@ -259,5 +334,6 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/logout', LogoutHandler),
                                ('/newpost', NewPostHandler),
                                ('/welcome', WelcomeHandler),
+                               ('/([0-9]+)', PostHandler),
                                ],
                               debug=True)

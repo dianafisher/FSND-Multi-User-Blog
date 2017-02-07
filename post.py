@@ -7,7 +7,7 @@ post.py - This file contains the class definitions for the Post entity.
 
 class Post(ndb.Model):
     user = ndb.KeyProperty(required=True, kind='User')
-    title = ndb.StringProperty(required=True)
+    subject = ndb.StringProperty(required=True)
     content = ndb.TextProperty(required=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     last_modified = ndb.DateTimeProperty(auto_now=True)
@@ -15,7 +15,7 @@ class Post(ndb.Model):
     @classmethod
     def new_post(cls, user, subject, content):
         """ creates and returns a new Post instance"""
-        post = Post(user=user, subject=subject, content=content)
+        post = Post(user=user.key, subject=subject, content=content)
         post.put()
         return post
 

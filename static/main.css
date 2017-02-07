@@ -276,3 +276,30 @@ label {
 .login-link:visited {
     color: gray;
 }
+
+/*
+ * Posts
+ */
+
+ .post {
+    padding: 10px;
+}
+
+.post-header {
+    border-bottom: 5px solid #758fbb;
+}
+
+.post-subject {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.post-date {
+    text-align: right;
+    font-size: 0.75em;
+    padding-top: 10px;
+}
+
+.post-content {
+    font-family: roboto;
+}
