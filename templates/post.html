@@ -1,15 +1,12 @@
-<div class="post">
-    <div class="post-heading">
-        <div class="post-title">
-            {{post.title}}
-        </div>
+{% extends "base.html" %}
 
-        <div class="post-date">
-            {{post.created.strftime("%a, %b %d, %Y")}}
+{% block content %}
+    <div class="post col-12">
+        <div class="post-header row">
+            <div class="post-subject col-6">{{post.subject}}</div>
+            <div class="post-username col-3">by {{post.user.get().username}} </div>
+            <div class="post-date col-3">{{post.created.strftime("%b %d, %Y")}}</div>
         </div>
-
-        <div class="post-content">
-            {{post._render_content | safe}}
-        </div>
+        <pre class="post-content">{{post.content | safe }}</pre>
     </div>
-</div>
+{% endblock %}
