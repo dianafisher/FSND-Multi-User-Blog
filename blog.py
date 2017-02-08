@@ -12,6 +12,7 @@ from google.appengine.ext import ndb
 
 from user import User
 from post import Post
+from comment import Comment
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -299,9 +300,9 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
-        print 'looking for post with id: {}'.format(post_id)
+        # print 'looking for post with id: {}'.format(post_id)
         post = Post.get_by_id(int(post_id))
-        print 'post: {}'.format(post)
+        # print 'post: {}'.format(post)
 
         # show 404 error page if the post cannot be found.
         if not post:
@@ -309,6 +310,21 @@ class PostHandler(Handler):
             return
         self.render("permalink.html", post=post)
 
+    def post(self, post_id):
+
+        if not self.user:
+            self.redirect('/')
+
+        post = Post.get_by_id(int(post_id))
+        text = self.request.get('comment')
+
+        if post and text:
+            # create new comment.
+            comment = Comment.new_comment(user=self.user.key,
+                                          post=post.key,
+                                          content=text)
+            # reload the page
+            self.redirect('/{}'.format(post.key.id()))
 
 """
     WelcomeHandler
