@@ -307,7 +307,7 @@ class PostHandler(Handler):
         if not post:
             self.error(404)
             return
-        self.render("post.html", post=post)
+        self.render("permalink.html", post=post)
 
 
 """

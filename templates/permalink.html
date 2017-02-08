@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  {{post.render() | safe}}
+    <div class="row">
+        <div class="col-6">
+            <div>
+                <a href="#" class="btn-link">
+                     <i class="fa fa-comments" aria-hidden="true"></i> 36 comments
+                </a>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like</button>
+            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+        </div>
+
+        <div class="post-comment">
+            <div class="comment-body">
+                <a href='#'>Mickey</a>
+                This is Mickey's comment about this post.
+                <br />
+                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
+                <small class="text-muted">10.07.2014</small>
+            </div>
+        </div>
+
+        <div class="post-comment">
+            <div class="comment-body">
+                <form role="form" class="form-inline" method="post">
+                    <textarea class="form-control" placeholder="Write comment..."></textarea>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

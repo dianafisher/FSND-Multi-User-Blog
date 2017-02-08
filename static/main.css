@@ -110,13 +110,14 @@ label {
   font-size: 20px;
 }
 
+b,
+strong {
+  font-weight: 700;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
-}
-
-.box {
-    width: 100%;
 }
 
 /*
@@ -190,6 +191,35 @@ label {
 .col-offset-6 {
     margin-left: 50%;
 }
+
+/*
+ * Box
+ */
+
+.box {
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 0;
+  padding: 0;
+}
+
+.box-content {
+  background-color: #fff;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+  border-color: #e7eaec;
+  border-style: solid solid none;
+  border-width: 1px 0;
+}
+
+.small {
+  font-size: 85%;
+}
+
+.text-muted {
+  color: #888;
+}
+
 
 /*
  * Form
@@ -281,6 +311,10 @@ label {
  * Posts
  */
 
+ .post-username {
+  padding-right: 5px;
+ }
+
  .post {
     padding: 10px;
 }
@@ -295,11 +329,26 @@ label {
 }
 
 .post-date {
+    /*padding-left: 5px;*/
     text-align: right;
-    font-size: 0.75em;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
+}
+
+/* match all i that are descendents of .post-date */
+.post-date i {
+  padding-right: 5px;
 }
 
 .post-content {
     font-family: roboto;
+}
+
+.comment-body textarea{
+  height: 48px;
+  padding: 0;
+}
+
+.comment-body input[type=submit] {
+  float: right;
+  margin-top: 10px;
 }
