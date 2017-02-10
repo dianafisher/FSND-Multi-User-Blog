@@ -1,5 +1,7 @@
 from google.appengine.ext import ndb
 
+import utils
+
 """
 comment.py - This file contains the class definitions for the Comment entity.
 """
@@ -18,3 +20,9 @@ class Comment(ndb.Model):
         comment = Comment(user=user, post=post, content=content)
         comment.put()
         return comment
+
+    def render(self):
+        # replace new line characters with breaks
+        self.__render_text = self.content.replace('\n', '<br>')
+        return utils.render_str('comment.html',
+                                comment=self)

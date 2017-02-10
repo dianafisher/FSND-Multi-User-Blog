@@ -2,31 +2,29 @@
 
 
 {% block content %}
-  {{post.render() | safe}}
+<div class="post">
     <div class="row">
-        <div class="col-6">
-            <div>
-                <a href="#" class="btn-link">
-                     <i class="fa fa-comments" aria-hidden="true"></i> 36 comments
-                </a>
+        <div class="col-10">
+            <div class="box">
+                <div class="box-content">
+                    <div class="text-center post-subject">
+                        <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{post.created.strftime("%b %d, %Y")}}</span>
+                        <h1>{{post.subject}}</h1>
+                    </div>
+                    <div class="post-content">
+                        <pre class="post-content">{{post.content | safe }}</pre>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="btn-group">
-            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like</button>
-            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-        </div>
-
-        <div class="post-comment">
-            <div class="comment-body">
-                <a href='#'>Mickey</a>
-                This is Mickey's comment about this post.
-                <br />
-                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                <small class="text-muted">10.07.2014</small>
-            </div>
-        </div>
-
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h2>Comments:</h2>
+            {% for comment in comments %}
+                {{ comment.render() | safe }}
+            {% endfor %}
         <div class="post-comment">
             <div class="comment-body">
                 <form role="form" class="form-inline" method="post">
@@ -36,4 +34,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

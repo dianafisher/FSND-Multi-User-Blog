@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sugar Raccoon</title>
+        <title>Blog</title>
         {% block head %}
         <link rel="stylesheet" href="static/main.css" />
         <link rel="stylesheet" href="static/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -17,9 +17,9 @@
             <header class="header">
                 <div class="header-inner">
                     <a href="/">
-                        <img class="logo" src="static/raccoon.svg" alt="raccoon logo SVG">
+                        <img class="logo" src="static/blogging.svg" alt="blog logo SVG">
                     </a>
-                    <h1 class="header-title"><a href="/">Sugar Raccoon</a></h1>
+                    <h1 class="header-title"><a href="/">Blog</a></h1>
                 </div>
                 <div class="row">
 
@@ -46,5 +46,24 @@
             <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
         </footer>
     </div>
+    <script>
+        const textareas = document.querySelectorAll('textarea');
+        console.log(textareas);
+
+        textareas.forEach( function(element, index) {
+            // statements
+            element.addEventListener('keydown', onTextAreaKeyDown, false);
+        });
+
+        function onTextAreaKeyDown(e) {
+            // console.log(e);
+            console.log(e.target);
+            console.log(e.key);
+            // Is it the enter key?
+            if (e.key === "Enter") {
+                console.log("Enter key pressed!");
+            }
+        }
+    </script>
     </body>
 </html>

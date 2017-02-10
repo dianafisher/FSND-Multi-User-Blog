@@ -1,0 +1,17 @@
+{% block content %}
+<div class="box">
+    <div class="box-content">
+        <div class="post-comment">
+            <div class="comment-user">
+                {{ comment.user.get().username }}
+                <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{comment.created.strftime("%b %d, %Y")}}</span>
+            </div>
+            <div class="comment-body">
+
+                {{ comment.content }}
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

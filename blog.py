@@ -308,7 +308,14 @@ class PostHandler(Handler):
         if not post:
             self.error(404)
             return
-        self.render("permalink.html", post=post)
+
+        # get the comments
+        comments = post.get_comments()
+        print comments
+        num_comments = len(comments)
+        print 'num comments = {}'.format(num_comments)
+
+        self.render("permalink.html", post=post, comments=comments)
 
     def post(self, post_id):
 
