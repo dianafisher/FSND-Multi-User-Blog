@@ -336,6 +336,19 @@ class PostHandler(Handler):
 
 class EditPostHandler(Handler):
 
+    def get(self, post_id):
+        post = Post.get_by_id(int(post_id))
+
+        # show 404 error page if the post cannot be found.
+        if not post:
+            self.error(404)
+            return
+
+        self.render("editpost.html",
+                    subject=post.subject,
+                    content=post.content,
+                    error="")
+
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
         if post:
@@ -351,11 +364,12 @@ class DeletePostHandler(Handler):
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
         if post:
-            print "attempting to delete post {}".format(post)
+            post.key.delete()
         else:
             print "post not found."
 
-        self.redirect('/{}'.format(post_id))
+        # redirect to the front page
+        self.redirect('/')
 
 """
     WelcomeHandler

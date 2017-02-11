@@ -21,7 +21,10 @@
     <div class="row">
         <div class="post-buttons">
             <div class="btn-group">
-                <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <a href="/{{post.key.id()}}/edit" class="btn-link">
+                    <h2 class="post-subject col-6">Edit</h2>
+                </a>
+                <!-- <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button> -->
                 <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
             </div>
         </div>
@@ -65,7 +68,13 @@
         const path = '/' + postId + '/delete';
         console.log(path);
 
-        post(path, {}, 'POST');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', path, true);
+        xhr.send();
+
+        xhr.onreadystatechange = processRequest;
+
+        // post(path, {}, 'POST');
     }
 
     function onEdit(e) {
@@ -76,7 +85,24 @@
 
         const path = '/' + postId + '/edit';
         console.log(path);
-        post(path, {}, 'POST');
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET', path, true);
+        // xhr.send();
+
+        // xhr.onreadystatechange = processRequest;
+
+        post(path, {}, 'GET');
+    }
+
+    function processRequest(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+                // time to partay!!!
+            console.log('time to partay!!');
+            alert('Time to partay!');
+        } else {
+            console.log(e);
+        }
     }
 
     function post(path, params, method) {
