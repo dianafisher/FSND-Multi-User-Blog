@@ -19,10 +19,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="comment-buttons">
+        <div class="post-buttons">
             <div class="btn-group">
-                <button class="btn btn-white" name="edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button class="btn btn-white" name="delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
             </div>
         </div>
     </div>
@@ -47,27 +47,61 @@
 
 {% block tail_script %}
 <script>
-    function deleteComment(e) {
-            console.log('deleteComment');
-            console.log(e);
-    }
 
-    function deletePost(e) {
-        console.log('deletePost');
-    }
+    const editPostBtn = document.querySelector('button[name=edit-post]');
+    console.log(editPostBtn);
+    editPostBtn.addEventListener('click', onEdit, false);
 
-    const buttons = document.querySelectorAll('button');
-    console.log(buttons);
+    const deletePostBtn = document.querySelector('button[name=delete-post]');
+    console.log(deletePostBtn);
+    deletePostBtn.addEventListener('click', onDelete, false);
 
-    buttons.forEach( function(btn, index) {
-        // statements
-        btn.addEventListener('click', onButtonClick, false);
-    });
-
-    function onButtonClick(e) {
-        // console.log(e);
+    function onDelete(e) {
         console.log(e.target);
+        console.log(this.dataset);
+        const postId = this.dataset.id;
+        console.log(postId);
+
+        const path = '/' + postId + '/delete';
+        console.log(path);
+
+        post(path, {}, 'POST');
     }
+
+    function onEdit(e) {
+        console.log(e.target);
+        console.log(this.dataset);
+        const postId = this.dataset.id;
+        console.log(postId);
+
+        const path = '/' + postId + '/edit';
+        console.log(path);
+        post(path, {}, 'POST');
+    }
+
+    function post(path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+             }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+}
 
 </script>
 {% endblock tail_script %}

@@ -333,8 +333,29 @@ class PostHandler(Handler):
             # reload the page
             self.redirect('/{}'.format(post.key.id()))
 
-    def delete(self, post_id):
-        print 'delete post with id:'.format(post_id)
+
+class EditPostHandler(Handler):
+
+    def post(self, post_id):
+        post = Post.get_by_id(int(post_id))
+        if post:
+            print "attempting to edit post {}".format(post)
+        else:
+            print "post not found."
+
+        self.redirect('/{}'.format(post_id))
+
+
+class DeletePostHandler(Handler):
+
+    def post(self, post_id):
+        post = Post.get_by_id(int(post_id))
+        if post:
+            print "attempting to delete post {}".format(post)
+        else:
+            print "post not found."
+
+        self.redirect('/{}'.format(post_id))
 
 """
     WelcomeHandler
@@ -361,5 +382,7 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/newpost', NewPostHandler),
                                ('/welcome', WelcomeHandler),
                                ('/([0-9]+)', PostHandler),
+                               ('/([0-9]+)/edit', EditPostHandler),
+                               ('/([0-9]+)/delete', DeletePostHandler)
                                ],
                               debug=True)
