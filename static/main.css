@@ -98,7 +98,7 @@ textarea {
   width: 500px;
   height: 400px;
   font-size: 17px;
-  font-family: monospace;
+  font-family: roboto;
 }
 
 input[type=submit] {
@@ -113,6 +113,16 @@ label {
 b,
 strong {
   font-weight: 700;
+}
+
+pre {
+  font-family: roboto;
+  font-size: 1.25em;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 .container {
@@ -384,9 +394,9 @@ strong {
   padding-right: 5px;
 }
 
-.post-content {
+/*.post-content {
     font-family: roboto;
-}
+}*/
 
 .comment-body textarea{
   height: 48px;

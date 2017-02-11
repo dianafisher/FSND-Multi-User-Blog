@@ -6,7 +6,7 @@
                     <h2 class="post-subject col-6">{{post.subject}}</h2>
                 </a>
                 <div class="small">
-                    <strong class="post-username">{{post.user.get().username}}</strong>
+                    <strong class="post-username">Posted by {{post.user.get().username}}</strong>
                     <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{post.created.strftime("%b %d, %Y")}}</span>
                 </div>
                 <pre class="post-content">{{post.content | safe }}</pre>
@@ -16,6 +16,7 @@
                     <div class="col-6">
                         <div class="btn-group">
                             <button class="btn btn-red"><i class="fa fa-heart"></i> Like</button>
+                            <!-- <button class="btn btn-white"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button> -->
                             <!-- <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button> -->
                         </div>
                         <div>
