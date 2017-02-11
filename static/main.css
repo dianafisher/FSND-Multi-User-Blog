@@ -222,6 +222,12 @@ strong {
   border: 1px solid #e7eaec;
 }
 
+.btn-red {
+    background-color: #ed5565;
+    border-color: #ed5565;
+    color: #FFFFFF;
+}
+
 .btn:hover,
 .btn:focus {
   outline-offset: -2px;
