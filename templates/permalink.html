@@ -21,8 +21,8 @@
     <div class="row">
         <div class="comment-buttons">
             <div class="btn-group">
-                <button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button class="btn btn-white"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                <button class="btn btn-white" name="edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <button class="btn btn-white" name="delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
             </div>
         </div>
     </div>
@@ -44,3 +44,30 @@
     </div>
 </div>
 {% endblock %}
+
+{% block tail_script %}
+<script>
+    function deleteComment(e) {
+            console.log('deleteComment');
+            console.log(e);
+    }
+
+    function deletePost(e) {
+        console.log('deletePost');
+    }
+
+    const buttons = document.querySelectorAll('button');
+    console.log(buttons);
+
+    buttons.forEach( function(btn, index) {
+        // statements
+        btn.addEventListener('click', onButtonClick, false);
+    });
+
+    function onButtonClick(e) {
+        // console.log(e);
+        console.log(e.target);
+    }
+
+</script>
+{% endblock tail_script %}

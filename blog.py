@@ -333,6 +333,9 @@ class PostHandler(Handler):
             # reload the page
             self.redirect('/{}'.format(post.key.id()))
 
+    def delete(self, post_id):
+        print 'delete post with id:'.format(post_id)
+
 """
     WelcomeHandler
 
