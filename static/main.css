@@ -291,6 +291,16 @@ pre {
   color: #fff;
 }
 
+.btn-link {
+  color: #337ab7;;
+}
+
+a.btn-link:hover,
+a.btn-link:focus,
+a.btn-link:active {
+  text-decoration: none;
+  background-color: transparent;
+}
 
 button.dim {
   display: inline-block;
