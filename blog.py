@@ -369,15 +369,27 @@ class EditPostHandler(Handler):
 
 class DeletePostHandler(Handler):
 
+    # def get(self, post_id):
+    #     post = Post.get_by_id(int(post_id))
+    #     if post:
+    #         post.key.delete()
+    #     else:
+    #         print "post not found."
+
+    #     # redirect to the front page
+    #     self.redirect('/')
+
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
         if post:
             post.key.delete()
+            # redirect to the front page
+            self.redirect('/')
+
         else:
             print "post not found."
 
-        # redirect to the front page
-        self.redirect('/')
+
 
 """
     WelcomeHandler
