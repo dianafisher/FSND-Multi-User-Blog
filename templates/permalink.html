@@ -22,9 +22,8 @@
         <div class="post-buttons">
             <div class="btn-group">
                 <a href="/{{post.key.id()}}/edit" class="btn-link">
-                    <h2 class="post-subject col-6">Edit</h2>
+                    <button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
                 </a>
-                <!-- <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button> -->
                 <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
             </div>
         </div>
@@ -53,7 +52,7 @@
 
     const editPostBtn = document.querySelector('button[name=edit-post]');
     console.log(editPostBtn);
-    editPostBtn.addEventListener('click', onEdit, false);
+    // editPostBtn.addEventListener('click', onEdit, false);
 
     const deletePostBtn = document.querySelector('button[name=delete-post]');
     console.log(deletePostBtn);
