@@ -351,12 +351,20 @@ class EditPostHandler(Handler):
 
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
-        if post:
-            print "attempting to edit post {}".format(post)
+        if not post:
+            print "post not found"
         else:
-            print "post not found."
+            subject = self.request.get('subject')
+            content = self.request.get('content')
 
-        self.redirect('/{}'.format(post_id))
+            post.subject = subject
+            post.content = content
+
+            # save the new values
+            post.put()
+
+            # redirect back to the post page
+            self.redirect('/{}'.format(post_id))
 
 
 class DeletePostHandler(Handler):
