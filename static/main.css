@@ -374,6 +374,10 @@ button.dim:active:before {
   color: #333;
 }
 
+.btn-link h2 {
+  color: #2e8ac1;
+}
+
 /*
  * Form
  */
@@ -485,6 +489,10 @@ textarea.form-control {
 .post-subject {
     font-size: 1.5em;
     font-weight: bold;
+}
+
+.post-statistic {
+  padding-left: 10px;
 }
 
 .post-date {

@@ -3,6 +3,7 @@ import re
 import random
 import hashlib
 import hmac
+import time
 from string import letters
 
 import webapp2
@@ -331,6 +332,7 @@ class PostHandler(Handler):
                                           post=post.key,
                                           content=text)
             # reload the page
+            time.sleep(0.1)
             self.redirect('/{}'.format(post.key.id()))
 
 
@@ -388,7 +390,6 @@ class DeletePostHandler(Handler):
 
         else:
             print "post not found."
-
 
 
 """

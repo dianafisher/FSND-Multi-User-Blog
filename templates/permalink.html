@@ -8,7 +8,6 @@
             <h2>{{post.subject}}</h2>
             <div class="text-muted post-date pull-right"><i class="fa fa-clock-o" aria-hidden="true"></i>{{post.created.strftime("%b %d, %Y")}}</div>
         </div>
-    <!-- </div> -->
         <div class="box-content">
             <div class="row">
                 <div class="col-10">
@@ -46,14 +45,15 @@
             {% for comment in comments %}
                 {{ comment.render() | safe }}
             {% endfor %}
-        <div class="post-comment">
+        <div class="row">
             <div class="comment-body">
                 <form role="form" class="form-inline" method="post" name="comment-form">
                     <textarea class="form-control" name="comment" placeholder="Write a comment..."></textarea>
-                    <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-commenting-o" aria-hidden="true"></i> Post Comment</button>
+                    <!-- <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-commenting-o" aria-hidden="true"></i> Post Comment</button> -->
                 </form>
             </div>
         </div>
+        <div class="row"></div>
     </div>
 </div>
 
@@ -78,13 +78,14 @@
 
 
     function onTextAreaKeyDown(e) {
-        console.log(e);
+        // console.log(e);
         // console.log(e.target);
-        console.log(e.key);
+        // console.log(e.key);
         // Is it the enter key?
-        if (e.key === "Enter") {
-         console.log("Enter key pressed!");
-         commentForm.submit();
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            console.log("Enter key pressed!");
+            commentForm.submit();
         }
         // if (e.key === "Shift") {
         //     console.log()

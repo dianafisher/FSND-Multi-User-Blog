@@ -28,11 +28,12 @@ class Post(ndb.Model):
         comments = self.get_comments()
         print comments
         num_comments = len(comments)
+        num_likes = 10000
         print 'num comments = {}'.format(num_comments)
         return utils.render_str('post.html',
                                 post=self,
-                                comments=comments,
-                                comment_count=num_comments)
+                                comment_count=num_comments,
+                                like_count=num_likes)
 
     def get_comments(self):
         """queries the datastore for comments on this post"""
