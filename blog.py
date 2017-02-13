@@ -99,6 +99,10 @@ def valid_email(email):
 
 class Handler(webapp2.RequestHandler):
 
+    def redirect_after_delay(self, redirect_url):
+        time.sleep(0.1)
+        self.redirect(redirect_url)
+
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
 
@@ -332,8 +336,7 @@ class PostHandler(Handler):
                                           post=post.key,
                                           content=text)
             # reload the page
-            time.sleep(0.1)
-            self.redirect('/{}'.format(post.key.id()))
+            self.redirect_after_delay('/{}'.format(post.key.id()))
 
 
 class EditPostHandler(Handler):
@@ -392,6 +395,23 @@ class DeletePostHandler(Handler):
             print "post not found."
 
 
+class EditCommentHandler(Handler):
+    def post(self, comment_id):
+        pass
+
+
+class DeleteCommentHandler(Handler):
+
+    def post(self, comment_id):
+        comment = Comment.get_by_id(int(comment_id))
+        if comment:
+            post = comment.post.get()
+            print "post = {}".format(post)
+            post_id = post.key.id()
+            comment.key.delete()
+            # redirect to the post page
+            self.redirect_after_delay('/{}'.format(post_id))
+
 """
     WelcomeHandler
 
@@ -418,6 +438,9 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/welcome', WelcomeHandler),
                                ('/([0-9]+)', PostHandler),
                                ('/([0-9]+)/edit', EditPostHandler),
-                               ('/([0-9]+)/delete', DeletePostHandler)
+                               ('/([0-9]+)/delete', DeletePostHandler),
+                               ('/comment/([0-9]+)/edit', EditCommentHandler),
+                               ('/comment/([0-9]+)/delete',
+                                DeleteCommentHandler)
                                ],
                               debug=True)

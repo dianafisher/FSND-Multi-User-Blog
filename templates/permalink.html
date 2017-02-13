@@ -22,17 +22,18 @@
 <div class="row">
     <div class="post-buttons">
         <div class="btn-group">
-            <a href="/{{post.key.id()}}/edit" class="btn-link">
+            <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+            <!-- <a href="/{{post.key.id()}}/edit" class="btn-link">
                 <button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button>
-            </a>
+             --></a>
             <!-- <a href="/{{post.key.id()}}/delete" class="btn-link">
                 <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
             </a> -->
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
         <div class="btn-group">
-            <button class="btn btn-outline btn-red dim"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
-            <button class="btn btn-outline btn-red dim"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
+            <button class="btn btn-white"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+            <button class="btn btn-white"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
         </div>
     </div>
 </div>
@@ -68,6 +69,9 @@
 {% block tail_script %}
 <script>
 
+    /*
+     * Get the comment text area and add a keydown event listner to it.
+     */
     const commentTextArea = document.querySelector('textarea');
     console.log(commentTextArea);
 
@@ -76,32 +80,25 @@
 
     commentTextArea.addEventListener('keydown', onTextAreaKeyDown, false);
 
-
     function onTextAreaKeyDown(e) {
-        // console.log(e);
-        // console.log(e.target);
-        // console.log(e.key);
-        // Is it the enter key?
+
+        // Post the comment if the Enter key has been pressed.
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             console.log("Enter key pressed!");
             commentForm.submit();
         }
-        // if (e.key === "Shift") {
-        //     console.log()
-        // }
     }
 
-
-    const editPostBtn = document.querySelector('button[name=edit-post]');
-    console.log(editPostBtn);
-    // editPostBtn.addEventListener('click', onEdit, false);
-
+    /*
+     * Get the delete post button and add a click event listner to it.
+     */
     const deletePostBtn = document.querySelector('button[name=delete-post]');
     console.log(deletePostBtn);
-    deletePostBtn.addEventListener('click', onDelete, false);
+    deletePostBtn.addEventListener('click', onDeletePost, false);
 
-    function onDelete(e) {
+    // Delete the post
+    function onDeletePost(e) {
         console.log(e.target);
         console.log(this.dataset);
         const postId = this.dataset.id;
@@ -110,16 +107,17 @@
         const path = '/' + postId + '/delete';
         console.log(path);
 
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('POST', path, true);
-        // xhr.send();
-
-        // xhr.onreadystatechange = processRequest;
-
         post(path, {}, 'POST');
     }
 
-    function onEdit(e) {
+    /*
+     * Get the edit post button and add a click event listner to it.
+     */
+    const editPostBtn = document.querySelector('button[name=edit-post]');
+    console.log(editPostBtn);
+    editPostBtn.addEventListener('click', onEditPost, false);
+
+    function onEditPost(e) {
         console.log(e.target);
         console.log(this.dataset);
         const postId = this.dataset.id;
@@ -128,30 +126,45 @@
         const path = '/' + postId + '/edit';
         console.log(path);
 
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET', path, true);
-        // xhr.send();
-
-        // xhr.onreadystatechange = processRequest;
-
         post(path, {}, 'GET');
     }
 
-    function processRequest(e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-                // time to partay!!!
-            console.log('time to partay!!');
-            alert('Time to partay!');
-        } else {
-            console.log(e);
-        }
+    /*
+     * Get the delete comment buttons and add a click event listner to each.
+     */
+    const deleteCommentBtns = document.querySelectorAll('button[name=delete-comment]');
+    // console.log(deleteCommentBtns);
+
+    deleteCommentBtns.forEach(button => button.addEventListener('click', onDeleteComment));
+
+    function onDeleteComment(e) {
+        const commentId = this.dataset.id;
+
+        const path = '/comment/' + commentId + '/delete';
+        console.log(path);
+
+        post(path, {}, 'POST');
     }
 
+    /*
+     * Get the edit comment buttons and add a click event listner to each.
+     */
+    const editCommentBtns = document.querySelectorAll('button[name=edit-comment]');
+    editCommentBtns.forEach(button => button.addEventListener('click', onEditComment));
+
+    function onEditComment(e) {
+        const commentId = this.dataset.id;
+
+        const path = '/comment/' + commentId + '/edit';
+        console.log(path);
+    }
+
+    /*
+     * Function to send a GET or POST request to the specified path.
+     */
     function post(path, params, method) {
         method = method || "post"; // Set method to post by default if not specified.
 
-        // The rest of this code assumes you are not using a library.
-        // It can be made less wordy if you use one.
         var form = document.createElement("form");
         form.setAttribute("method", method);
         form.setAttribute("action", path);

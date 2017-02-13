@@ -28,7 +28,7 @@ class Post(ndb.Model):
         comments = self.get_comments()
         print comments
         num_comments = len(comments)
-        num_likes = 10000
+        num_likes = 0
         print 'num comments = {}'.format(num_comments)
         return utils.render_str('post.html',
                                 post=self,
