@@ -345,8 +345,7 @@ class EditPostHandler(Handler):
             return
 
         self.render("editpost.html",
-                    subject=post.subject,
-                    content=post.content,
+                    post=post,
                     error="")
 
     def post(self, post_id):
@@ -357,6 +356,7 @@ class EditPostHandler(Handler):
             subject = self.request.get('subject')
             content = self.request.get('content')
 
+            print "editing post to {}, {}".format(subject, content)
             post.subject = subject
             post.content = content
 

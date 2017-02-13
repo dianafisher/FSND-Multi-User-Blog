@@ -9,7 +9,7 @@
                 <div class="box-content">
                     <div class="text-center post-subject">
                         <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{post.created.strftime("%b %d, %Y")}}</span>
-                        <h1>{{post.subject}}</h1>
+                        <h2>{{post.subject}}</h2>
                     </div>
                     <div class="post-content">
                         <pre class="post-content">{{post.content | safe }}</pre>
@@ -41,7 +41,7 @@
         <div class="post-comment">
             <div class="comment-body">
                 <form role="form" class="form-inline" method="post">
-                    <textarea class="form-control" name="comment" placeholder="Write comment..."></textarea>
+                    <textarea class="form-control" name="comment" placeholder="Write a comment..."></textarea>
                     <input type="submit">
                 </form>
             </div>
