@@ -370,6 +370,9 @@ button.dim:active:before {
   color: #888;
 }
 
+.box-title h2 {
+  color: #333;
+}
 
 /*
  * Form
@@ -495,9 +498,10 @@ textarea.form-control {
   padding-right: 5px;
 }
 
-/*.post-content {
-    font-family: roboto;
-}*/
+.post-comment {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e7eaec;
+}
 
 .comment-body textarea{
   height: 48px;
