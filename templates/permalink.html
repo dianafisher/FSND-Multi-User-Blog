@@ -23,12 +23,6 @@
     <div class="post-buttons">
         <div class="btn-group">
             <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-            <!-- <a href="/{{post.key.id()}}/edit" class="btn-link">
-                <button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button>
-             --></a>
-            <!-- <a href="/{{post.key.id()}}/delete" class="btn-link">
-                <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-            </a> -->
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
         <div class="btn-group">
@@ -152,12 +146,41 @@
     const editCommentBtns = document.querySelectorAll('button[name=edit-comment]');
     editCommentBtns.forEach(button => button.addEventListener('click', onEditComment));
 
+
     function onEditComment(e) {
         const commentId = this.dataset.id;
 
+        // Get the corresponding textarea for this.
+        const forms = document.querySelectorAll('form[name=comment-edit-form]');
+        console.log(forms);
+        // convert from NodeList to Array
+        const formArray = Array.from(forms);
+        const form = formArray.filter(f => (f.dataset.id === commentId));
+
+        // console.log(form);
+        console.log(form[0]);
+        form[0].style.display = "block";
+        console.log(form[0].style);
         const path = '/comment/' + commentId + '/edit';
         console.log(path);
     }
+
+    const cancelButtons = document.querySelectorAll('button[name=comment-edit-cancel]');
+    console.log(cancelButtons);
+
+    cancelButtons.forEach(button => button.addEventListener('click', onCancelCommentEdit));
+
+    function onCancelCommentEdit(e) {
+        // hide the text area.
+        console.log('cancel button clicked');
+        console.log(e.target.parentNode);
+        const formNode = e.target.parentNode;
+        // clear out the text area on the form.
+        textarea = formNode.querySelector('textarea');
+        textarea.value = "";
+        formNode.style.display = "none";
+    }
+
 
     /*
      * Function to send a GET or POST request to the specified path.

@@ -512,8 +512,16 @@ textarea.form-control {
 }
 
 .comment-body textarea{
-  height: 48px;
+  height: 70px;
   padding: 0;
+}
+
+.comment-edit .form-inline {
+  display: none;
+}
+
+.comment-edit textarea {
+  height: 70px;
 }
 
 .comment-body input[type=submit] {

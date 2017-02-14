@@ -1,23 +1,26 @@
 {% block content %}
-<!-- <div class="box">
-    <div class="box-content"> -->
         <div class="post-comment" data-id="{{ comment.key.id() }}">
             <div class="comment-user">
                 {{ comment.user.get().username }}
                 <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{comment.created.strftime("%b %d, %Y")}}</span>
             </div>
-            <div class="comment-body">
 
+            <div class="comment-body">
                 {{ comment.content }}
                 <br />
-            </div>
-            <div class="comment-buttons">
-                <div class="btn-group">
-                    <button class="btn btn-white" name="edit-comment" data-id="{{comment.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                    <button class="btn btn-white" name="delete-comment" data-id="{{comment.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                <div class="comment-buttons">
+                    <div class="btn-group">
+                        <button class="btn btn-white" name="edit-comment" data-id="{{comment.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                        <button class="btn btn-white" name="delete-comment" data-id="{{comment.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                    </div>
                 </div>
             </div>
+
+             <div class="comment-edit">
+                <form role="form" class="form-inline" method="post" name="comment-edit-form" data-id="{{comment.key.id()}}">
+                    <textarea class="form-control" name="comment">{{ comment.content }}</textarea>
+                    <button class="btn btn-white" name="comment-edit-cancel" type="button"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+                </form>
+            </div>
         </div>
-    <!-- </div> -->
-<!-- </div> -->
 {% endblock %}
