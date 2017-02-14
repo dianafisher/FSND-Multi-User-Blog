@@ -26,8 +26,8 @@
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
         <div class="btn-group">
-            <button class="btn btn-white"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
-            <button class="btn btn-white"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
+            <button class="btn btn-white" name="like-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+            <button class="btn btn-white" name="unlike-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
         </div>
     </div>
 </div>
@@ -122,6 +122,32 @@
 
         post(path, {}, 'GET');
     }
+
+    /*
+     * Get the like button and add a click event listner to it.
+     */
+     const likeButton = document.querySelector('button[name=like-post]');
+     likeButton.addEventListener('click', onLikePost, false);
+
+     function onLikePost(e) {
+        const postId = this.dataset.id;
+        const path = '/' + postId + '/like';
+
+        post(path, {}, 'POST');
+     }
+
+     /*
+     * Get the unlike button and add a click event listner to it.
+     */
+     const unlikeButton = document.querySelector('button[name=unlike-post]');
+     unlikeButton.addEventListener('click', onUnlikePost, false);
+
+     function onUnlikePost(e) {
+        const postId = this.dataset.id;
+        const path = '/' + postId + '/unlike';
+
+        post(path, {}, 'POST');
+     }
 
     /*
      * Get the delete comment buttons and add a click event listner to each.

@@ -14,6 +14,7 @@ from google.appengine.ext import ndb
 from user import User
 from post import Post
 from comment import Comment
+from like import Like
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -372,6 +373,42 @@ class EditPostHandler(Handler):
             self.redirect('/{}'.format(post_id))
 
 
+class LikePostHandler(Handler):
+
+    def post(self, post_id):
+        if not self.user:
+            self.redirect('/')
+
+        post = Post.get_by_id(int(post_id))
+        if post:
+            # create new like instance.
+            like = Like.new_like(user=self.user.key,
+                                 post=post.key)
+
+            # reload the page
+            self.redirect_after_delay('/{}'.format(post.key.id()))
+
+
+class UnlikePostHandler(Handler):
+
+    def post(self, post_id):
+        if not self.user:
+            self.redirect('/')
+
+        post = Post.get_by_id(int(post_id))
+        if post:
+            print post.key
+            query = Like.query(Like.post == post.key)
+            like = query.get()
+
+        if like:
+            # print "post = {}".format(post)
+            post_id = post.key.id()
+            like.key.delete()
+            # redirect to the post page
+            self.redirect_after_delay('/{}'.format(post_id))
+
+
 class DeletePostHandler(Handler):
 
     # def get(self, post_id):
@@ -406,7 +443,7 @@ class DeleteCommentHandler(Handler):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
             post = comment.post.get()
-            print "post = {}".format(post)
+            # print "post = {}".format(post)
             post_id = post.key.id()
             comment.key.delete()
             # redirect to the post page
@@ -438,6 +475,8 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/welcome', WelcomeHandler),
                                ('/([0-9]+)', PostHandler),
                                ('/([0-9]+)/edit', EditPostHandler),
+                               ('/([0-9]+)/like', LikePostHandler),
+                               ('/([0-9]+)/unlike', UnlikePostHandler),
                                ('/([0-9]+)/delete', DeletePostHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',

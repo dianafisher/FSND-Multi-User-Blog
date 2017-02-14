@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 import utils
 
 from comment import Comment
+from like import Like
 
 """
 post.py - This file contains the class definitions for the Post entity.
@@ -26,10 +27,11 @@ class Post(ndb.Model):
         # replace new line characters with breaks
         self.__render_text = self.content.replace('\n', '<br>')
         comments = self.get_comments()
-        print comments
+        likes = self.get_likes()
+
         num_comments = len(comments)
-        num_likes = 0
-        print 'num comments = {}'.format(num_comments)
+        num_likes = len(likes)
+
         return utils.render_str('post.html',
                                 post=self,
                                 comment_count=num_comments,
@@ -40,3 +42,9 @@ class Post(ndb.Model):
         comments_query = Comment.query(Comment.post == self.key).order(-Comment.created)
         comments = comments_query.fetch(10)
         return comments
+
+    def get_likes(self):
+        """ queries the datastore for likes on this post """
+        likes_query = Like.query(Like.post == self.key)
+        likes = likes_query.fetch(10)
+        return likes
