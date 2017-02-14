@@ -64,27 +64,6 @@
 <script>
 
     /*
-     * Get the comment text area and add a keydown event listner to it.
-     */
-    const commentTextArea = document.querySelector('textarea');
-    console.log(commentTextArea);
-
-    const commentForm = document.querySelector('form');
-    console.log(commentForm);
-
-    commentTextArea.addEventListener('keydown', onTextAreaKeyDown, false);
-
-    function onTextAreaKeyDown(e) {
-
-        // Post the comment if the Enter key has been pressed.
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            console.log("Enter key pressed!");
-            commentForm.submit();
-        }
-    }
-
-    /*
      * Get the delete post button and add a click event listner to it.
      */
     const deletePostBtn = document.querySelector('button[name=delete-post]');
@@ -149,13 +128,60 @@
         post(path, {}, 'POST');
      }
 
+     /*
+     * Get the comment text area and add a keydown event listner to it.
+     */
+
+    // Get the text area from the comment-form form
+    const commentTextArea = document.querySelector('textarea[name=comment]');
+    console.log(commentTextArea);
+    commentTextArea.addEventListener('keydown', onTextAreaKeyDown, false);
+
+    function onTextAreaKeyDown(e) {
+
+        // Post the comment if the Enter key has been pressed.
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            console.log(this);
+            console.log("Enter key pressed!");
+            // get the form parent for this textarea
+            console.log(this.value);
+            const form = this.parentNode;
+            console.log(form);
+            form.submit();
+        }
+    }
+
+    /*
+     * Get the comments
+     */
+    const comments = document.querySelectorAll('.comment');
+    console.log(comments);
+
+    // For each comment div, get the edit and delete buttons and the textarea
+    comments.forEach(comment => {
+        console.log(comment);
+        const commentId = comment.dataset.id;
+
+        // get the delete button
+        const deleteButton = comment.querySelector('button[name=delete-comment]');
+        deleteButton.addEventListener('click', onDeleteComment);
+
+        const editButton = comment.querySelector('button[name=edit-comment]');
+        editButton.addEventListener('click', onEditComment);
+
+        const textarea = comment.querySelector('textarea[name=comment-edit]');
+        textarea.addEventListener('keydown', onTextAreaKeyDown, false);
+
+    });
+
     /*
      * Get the delete comment buttons and add a click event listner to each.
      */
-    const deleteCommentBtns = document.querySelectorAll('button[name=delete-comment]');
-    // console.log(deleteCommentBtns);
+    // const deleteCommentBtns = document.querySelectorAll('button[name=delete-comment]');
+    // // console.log(deleteCommentBtns);
 
-    deleteCommentBtns.forEach(button => button.addEventListener('click', onDeleteComment));
+    // deleteCommentBtns.forEach(button => button.addEventListener('click', onDeleteComment));
 
     function onDeleteComment(e) {
         const commentId = this.dataset.id;
@@ -169,28 +195,48 @@
     /*
      * Get the edit comment buttons and add a click event listner to each.
      */
-    const editCommentBtns = document.querySelectorAll('button[name=edit-comment]');
-    editCommentBtns.forEach(button => button.addEventListener('click', onEditComment));
-
+    // const editCommentBtns = document.querySelectorAll('button[name=edit-comment]');
+    // editCommentBtns.forEach(button => button.addEventListener('click', onEditComment));
 
     function onEditComment(e) {
         const commentId = this.dataset.id;
 
         // Get the corresponding textarea for this.
-        const forms = document.querySelectorAll('form[name=comment-edit-form]');
+        const forms = document.querySelectorAll('form[name=comment-edit]');
         console.log(forms);
         // convert from NodeList to Array
         const formArray = Array.from(forms);
-        const form = formArray.filter(f => (f.dataset.id === commentId));
+        // find the form that matches our comment id
+        const form = formArray.find(function(f){
+            if (f.dataset.id === commentId) {
+                return true;
+            }
+        });
+
+        // toggleCommentButtons();
 
         // console.log(form);
-        console.log(form[0]);
-        form[0].style.display = "block";
-        console.log(form[0].style);
+        console.log(form);
+        form.style.display = "block";
+        console.log(form.style);
         const path = '/comment/' + commentId + '/edit';
         console.log(path);
     }
 
+    function toggleCommentButtons() {
+        current = commentButtons.style;
+        console.log('current style:');
+        console.log(current);
+        if (current.display === "block") {
+            current.display = "none";
+        } else {
+            current.display = "block";
+        }
+    }
+
+    /*
+     * Get the cancel buttons for canceling comment edits.
+     */
     const cancelButtons = document.querySelectorAll('button[name=comment-edit-cancel]');
     console.log(cancelButtons);
 
@@ -205,8 +251,9 @@
         textarea = formNode.querySelector('textarea');
         textarea.value = "";
         formNode.style.display = "none";
-    }
 
+        // toggleCommentButtons();
+    }
 
     /*
      * Function to send a GET or POST request to the specified path.

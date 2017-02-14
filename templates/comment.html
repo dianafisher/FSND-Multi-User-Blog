@@ -1,5 +1,5 @@
 {% block content %}
-        <div class="post-comment" data-id="{{ comment.key.id() }}">
+        <div class="comment" data-id="{{ comment.key.id() }}">
             <div class="comment-user">
                 {{ comment.user.get().username }}
                 <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{comment.created.strftime("%b %d, %Y")}}</span>
@@ -17,8 +17,8 @@
             </div>
 
              <div class="comment-edit">
-                <form role="form" class="form-inline" method="post" name="comment-edit-form" data-id="{{comment.key.id()}}">
-                    <textarea class="form-control" name="comment">{{ comment.content }}</textarea>
+                <form role="form" class="form-inline" method="post" name="comment-edit" data-id="{{comment.key.id()}}" action="/comment/{{comment.key.id()}}/edit">
+                    <textarea class="form-control" name="comment-edit">{{ comment.content }}</textarea>
                     <button class="btn btn-white" name="comment-edit-cancel" type="button"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
                 </form>
             </div>

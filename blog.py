@@ -329,6 +329,10 @@ class PostHandler(Handler):
             self.redirect('/')
 
         post = Post.get_by_id(int(post_id))
+        if not post:
+            self.error(404)
+            return
+
         text = self.request.get('comment')
 
         if post and text:
@@ -338,6 +342,8 @@ class PostHandler(Handler):
                                           content=text)
             # reload the page
             self.redirect_after_delay('/{}'.format(post.key.id()))
+        else:
+            self.error(404)
 
 
 class EditPostHandler(Handler):
@@ -429,12 +435,25 @@ class DeletePostHandler(Handler):
             self.redirect('/')
 
         else:
-            print "post not found."
+            self.error(404)
 
 
 class EditCommentHandler(Handler):
     def post(self, comment_id):
-        pass
+        comment = Comment.get_by_id(int(comment_id))
+        if comment:
+            text = self.request.get('comment-edit')
+            print 'new comment text: {}'.format(text)
+            comment.content = text
+            comment.put()
+
+            post = comment.post.get()
+            post_id = post.key.id()
+
+            # redirect back to the post page
+            self.redirect_after_delay('/{}'.format(post_id))
+        else:
+            self.error(404)
 
 
 class DeleteCommentHandler(Handler):
@@ -448,6 +467,8 @@ class DeleteCommentHandler(Handler):
             comment.key.delete()
             # redirect to the post page
             self.redirect_after_delay('/{}'.format(post_id))
+        else:
+            self.error(404)
 
 """
     WelcomeHandler
