@@ -5,7 +5,6 @@
 <div class="row">
     {% for post in posts %}
         {{ post.render() | safe }}
-        <br><br>
     {% endfor %}
 </div>
 {% endblock %}

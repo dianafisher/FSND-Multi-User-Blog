@@ -1,28 +1,30 @@
 {% block content %}
-<div class="row">
-    <div class="box">
-        <div class="box-title">
-            <a href="/{{post.key.id()}}" class="btn-link"><h2 class="post-subject col-6">{{post.subject}}</h2></a>
-            <div class="small">
-                <strong class="post-username">Posted by {{post.user.get().username}} on {{post.created.strftime("%b %d, %Y")}}
-                    <div class="pull-right">
-                        <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
-                        <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
-                    </div>
-                </strong>
+<!-- <div class="row"> -->
+    <div class="col-12">
+        <div class="box">
+            <div class="box-title">
+                <a href="/{{post.key.id()}}" class="btn-link"><h2>{{post.subject}}</h2></a>
+                <div class="small">
+                    <strong class="post-username">Posted by {{post.user.get().username}} on {{post.created.strftime("%b %d, %Y")}}
+                        <div class="pull-right">
+                            <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
+                            <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
+                        </div>
+                    </strong>
+                </div>
             </div>
-        </div>
-        <div class="box-content">
-            <div class="row">
-                <div class="col-10">
-                    <div class="post-content">
-                        <pre class="post-content">{{post.content | safe }}</pre>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="post-content">
+                            <pre class="post-content">{{post.content | safe }}</pre>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 {% endblock %}
 

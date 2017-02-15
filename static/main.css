@@ -130,6 +130,10 @@ pre {
   flex-wrap: wrap;
 }
 
+.center {
+  text-align: center;
+}
+
 /*
  * Grid
  */
@@ -375,12 +379,12 @@ button.dim:active:before {
 }
 
 .box-title .small {
-  text-align: center;
   padding: 10px;
 }
 
 .btn-link h2 {
   color: #2e8ac1;
+  padding-left: 10px
 }
 
 /*
