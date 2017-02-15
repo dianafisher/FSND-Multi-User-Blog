@@ -18,4 +18,3 @@ class Like(ndb.Model):
         like = Like(user=user, post=post)
         like.put()
         return like
-

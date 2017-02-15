@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-4 col-sm-offset-2 pull-right">
-                <button class="btn btn-white" type="submit">Cancel</button>
+                <button class="btn btn-white" type="button" name="cancel">Cancel</button>
                 <button class="btn btn-primary" type="submit">Post</button>
               </div>
             </div>
@@ -34,3 +34,21 @@
   </div>
 </div>
 {% endblock %}
+
+
+{% block tail_script %}
+<script>
+    /*
+     * Get the cancel button and add a click event listner to it.
+     */
+     const cancelButton = document.querySelector('button[name=cancel]');
+     cancelButton.addEventListener('click', onCancelPost, false);
+
+     function onCancelPost(e) {
+
+        window.location.href = '/';
+     }
+
+
+</script>
+{% endblock tail_script %}

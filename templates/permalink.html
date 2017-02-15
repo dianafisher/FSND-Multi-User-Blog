@@ -56,10 +56,6 @@
 {% endblock %}
 
 
-
-
-
-
 {% block tail_script %}
 <script>
 
@@ -221,7 +217,7 @@
 
         console.log(text);
 
-        // set the text in the textarea back to the original text and then hide the form.
+        // set the text in the textarea back to the original text and hide the form.
         textarea = formNode.querySelector('textarea');
         textarea.value = text;
         formNode.style.display = "none";
@@ -254,7 +250,7 @@
 
         document.body.appendChild(form);
         form.submit();
-}
+    }
 
 </script>
 {% endblock tail_script %}
