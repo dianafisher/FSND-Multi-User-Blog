@@ -22,20 +22,21 @@
         </div>
     </div>
 </div>
-{% if user.key.id() == owner.key.id() %}
 <div class="row">
     <div class="post-buttons">
+        {% if user.key.id() == owner.key.id() %}
         <div class="btn-group">
             <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
+        {% endif %}
         <div class="btn-group">
             <button class="btn btn-white" name="like-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
             <button class="btn btn-white" name="unlike-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
         </div>
     </div>
 </div>
-{% endif %}
+
 <div class="row">
     <!-- <div class="col-12"> -->
     <div class="box-title">
