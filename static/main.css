@@ -374,6 +374,11 @@ button.dim:active:before {
   color: #333;
 }
 
+.box-title .small {
+  text-align: center;
+  padding: 10px;
+}
+
 .btn-link h2 {
   color: #2e8ac1;
 }
@@ -467,6 +472,21 @@ textarea.form-control {
 }
 
 /*
+ * Welcome
+ */
+
+.user-avatar {
+  width: 52px;
+  height: 52px;
+  border: 1px solid #e7eaec;
+}
+
+.user-avatar img {
+  border-radius: 50%;
+}
+
+
+/*
  * Posts
  */
 
@@ -483,8 +503,9 @@ textarea.form-control {
 }
 
 .post-subject {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
+    text-align: center;
 }
 
 .post-statistic {
