@@ -130,7 +130,7 @@ pre {
   flex-wrap: wrap;
 }
 
-.center {
+.text-center {
   text-align: center;
 }
 
@@ -552,4 +552,20 @@ textarea.form-control {
 
 .error {
   color: red !important;
+}
+
+.error-icon {
+  width: 500px;
+}
+
+.error-title {
+  font-weight: 300;
+  font-size: 4em;
+  margin: 0;
+  color: #2e8ac1;
+  padding-top: 10px;
+}
+
+.error-message {
+  padding-bottom: 10px;
 }

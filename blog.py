@@ -8,6 +8,7 @@ from string import letters
 
 import webapp2
 import jinja2
+import logging
 
 from google.appengine.ext import ndb
 
@@ -99,6 +100,22 @@ def valid_email(email):
 
 
 class Handler(webapp2.RequestHandler):
+
+    def handle_exception(self, exception, debug):
+        print exception
+
+        # Log the error.
+        logging.exception(exception)
+
+        # Set a custom message.
+        response.write('An error occurred.')
+
+        # If the exception is a HTTPException, use its error code.
+        # Otherwise use a generic 500 error code.
+        if isinstance(exception, webapp2.HTTPException):
+            response.set_status(exception.code)
+        else:
+            response.set_status(500)
 
     def redirect_after_delay(self, redirect_url):
         time.sleep(0.1)
@@ -383,6 +400,8 @@ class EditPostHandler(Handler):
         post = Post.get_by_id(int(post_id))
         if not post:
             print "post not found"
+            self.error(404)
+            return
         else:
             subject = self.request.get('subject')
             content = self.request.get('content')
@@ -496,6 +515,15 @@ class WelcomeHandler(Handler):
         else:
             self.redirect('/signup')
 
+"""
+    Error Handlers
+"""
+
+
+def handle_404(request, response, exception):
+    logging.exception(exception)
+    response.write(render_str("404.html"))
+    response.set_status(404)
 
 app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/signup', SignupHandler),
@@ -513,3 +541,5 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                 DeleteCommentHandler)
                                ],
                               debug=True)
+
+app.error_handlers[404] = handle_404
