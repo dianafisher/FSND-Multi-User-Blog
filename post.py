@@ -48,3 +48,8 @@ class Post(ndb.Model):
         likes_query = Like.query(Like.post == self.key)
         likes = likes_query.fetch(10)
         return likes
+
+    def get_owner_id(self):
+        owner = self.user.get()
+        owner_id = owner.key.id()
+        return owner_id

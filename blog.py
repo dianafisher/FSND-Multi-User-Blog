@@ -306,6 +306,7 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
+
         # print 'looking for post with id: {}'.format(post_id)
         post = Post.get_by_id(int(post_id))
         # print 'post: {}'.format(post)
@@ -317,11 +318,13 @@ class PostHandler(Handler):
 
         # get the comments
         comments = post.get_comments()
-        print comments
-        num_comments = len(comments)
-        print 'num comments = {}'.format(num_comments)
 
-        self.render("permalink.html", post=post, comments=comments)
+        owner = post.user.get()
+        print owner.key.id()
+        # create a dictionary to hold any error messages
+        params = dict(post=post, comments=comments, owner=owner)
+
+        self.render("permalink.html", **params)
 
     def post(self, post_id):
 
@@ -349,16 +352,32 @@ class PostHandler(Handler):
 class EditPostHandler(Handler):
 
     def get(self, post_id):
-        post = Post.get_by_id(int(post_id))
+        if not self.user:
+            self.redirect('/')
 
+        print "self.user = {}".format(self.user)
+
+        post = Post.get_by_id(int(post_id))
         # show 404 error page if the post cannot be found.
         if not post:
             self.error(404)
             return
 
-        self.render("editpost.html",
-                    post=post,
-                    error="")
+        params = dict(post=post)
+
+        # check that the current user is the owner of the post.
+        owner = post.user.get()
+        owner_id = owner.key.id()
+        user_id = self.user.key.id()
+
+        print 'owner_id = {}, user_id = {}'.format(owner_id, user_id)
+
+        if owner_id is not user_id:
+            params['permissions_error'] = "Only the original author may edit\
+            this post."
+            self.render("postpermissionserror.html", **params)
+        else:
+            self.render("editpost.html", **params)
 
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
@@ -416,16 +435,6 @@ class UnlikePostHandler(Handler):
 
 
 class DeletePostHandler(Handler):
-
-    # def get(self, post_id):
-    #     post = Post.get_by_id(int(post_id))
-    #     if post:
-    #         post.key.delete()
-    #     else:
-    #         print "post not found."
-
-    #     # redirect to the front page
-    #     self.redirect('/')
 
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))

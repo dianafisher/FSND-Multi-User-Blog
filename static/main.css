@@ -403,10 +403,6 @@ button.dim:active:before {
   margin-bottom: 15px;
 }
 
-.error {
-  color: red;
-}
-
 textarea.form-control {
   height: 400px;
 }
@@ -527,4 +523,8 @@ textarea.form-control {
 .comment-body input[type=submit] {
   float: right;
   margin-top: 10px;
+}
+
+.error {
+  color: red !important;
 }
