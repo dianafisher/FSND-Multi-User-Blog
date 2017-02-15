@@ -173,16 +173,13 @@
         const textarea = comment.querySelector('textarea[name=comment-edit]');
         textarea.addEventListener('keydown', onTextAreaKeyDown, false);
 
+        const cancelButton = comment.querySelector('button[name=comment-edit-cancel]');
+        cancelButton.addEventListener('click', onCancelCommentEdit);
     });
 
     /*
-     * Get the delete comment buttons and add a click event listner to each.
+     * Function to delete a comment
      */
-    // const deleteCommentBtns = document.querySelectorAll('button[name=delete-comment]');
-    // // console.log(deleteCommentBtns);
-
-    // deleteCommentBtns.forEach(button => button.addEventListener('click', onDeleteComment));
-
     function onDeleteComment(e) {
         const commentId = this.dataset.id;
 
@@ -193,66 +190,45 @@
     }
 
     /*
-     * Get the edit comment buttons and add a click event listner to each.
+     * Function to edit a comment
      */
-    // const editCommentBtns = document.querySelectorAll('button[name=edit-comment]');
-    // editCommentBtns.forEach(button => button.addEventListener('click', onEditComment));
-
     function onEditComment(e) {
         const commentId = this.dataset.id;
 
-        // Get the corresponding textarea for this.
-        const forms = document.querySelectorAll('form[name=comment-edit]');
-        console.log(forms);
-        // convert from NodeList to Array
-        const formArray = Array.from(forms);
-        // find the form that matches our comment id
-        const form = formArray.find(function(f){
-            if (f.dataset.id === commentId) {
-                return true;
-            }
-        });
-
-        // toggleCommentButtons();
-
-        // console.log(form);
-        console.log(form);
+        // Show the corresponding edit form for this comment.
+        const form = document.querySelector(`form[data-id="${commentId}"]`);
         form.style.display = "block";
-        console.log(form.style);
-        const path = '/comment/' + commentId + '/edit';
-        console.log(path);
+
+        // Get the comment buttons and hide them.
+        const div = document.querySelector(`.comment[data-id="${commentId}"]`);
+        console.log(div);
+        const buttons = div.querySelector('.comment-buttons');
+        buttons.style.display = "none";
     }
 
-    function toggleCommentButtons() {
-        current = commentButtons.style;
-        console.log('current style:');
-        console.log(current);
-        if (current.display === "block") {
-            current.display = "none";
-        } else {
-            current.display = "block";
-        }
-    }
 
     /*
-     * Get the cancel buttons for canceling comment edits.
+     * Function to cancel a comment edit.
      */
-    const cancelButtons = document.querySelectorAll('button[name=comment-edit-cancel]');
-    console.log(cancelButtons);
-
-    cancelButtons.forEach(button => button.addEventListener('click', onCancelCommentEdit));
-
     function onCancelCommentEdit(e) {
-        // hide the text area.
-        console.log('cancel button clicked');
-        console.log(e.target.parentNode);
+
+        // Get the form for this comment
         const formNode = e.target.parentNode;
-        // clear out the text area on the form.
+        const commentId = formNode.dataset.id;
+
+        const div = document.querySelector(`.comment[data-id="${commentId}"]`);
+        const text = div.querySelector('.comment-body').innerText;
+
+        console.log(text);
+
+        // set the text in the textarea back to the original text and then hide the form.
         textarea = formNode.querySelector('textarea');
-        textarea.value = "";
+        textarea.value = text;
         formNode.style.display = "none";
 
-        // toggleCommentButtons();
+        // Get the comment buttons and show them.
+        const buttons = div.querySelector('.comment-buttons');
+        buttons.style.display = "block";
     }
 
     /*
