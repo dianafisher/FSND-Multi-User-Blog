@@ -21,8 +21,9 @@ class Comment(ndb.Model):
         comment.put()
         return comment
 
-    def render(self):
+    def render(self, user=None):
         # replace new line characters with breaks
         self.__render_text = self.content.replace('\n', '<br>')
         return utils.render_str('comment.html',
-                                comment=self)
+                                comment=self,
+                                user=user)

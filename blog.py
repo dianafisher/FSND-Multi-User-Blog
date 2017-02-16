@@ -103,7 +103,7 @@ class Handler(webapp2.RequestHandler):
 
     def handle_exception(self, exception, debug):
         print exception
-
+        print 'exception: {}'.format(exception)
         # Log the error.
         logging.exception(exception)
 
@@ -126,6 +126,7 @@ class Handler(webapp2.RequestHandler):
         self.response.out.write(*a, **kw)
 
     def render_str(self, template, **params):
+        print "rendering template: {}".format(template)
         params['user'] = self.user
         return render_str(template, **params)
 
@@ -339,9 +340,13 @@ class PostHandler(Handler):
 
         owner = post.user.get()
 
+        owner_id = owner.key.id()
+        user_id = self.user.key.id()
+
         # create a dictionary to hold any error messages
         params = dict(post=post, comments=comments, owner=owner)
 
+        print 'owner: {}'.format(owner)
         self.render("permalink.html", **params)
 
     def post(self, post_id):
@@ -365,6 +370,10 @@ class PostHandler(Handler):
             self.redirect_after_delay('/{}'.format(post.key.id()))
         else:
             self.error(404)
+
+    def delete(self, post_id):
+        print 'delete post with id: {}'.format(post_id)
+
 
 ## TODO: Check for both subject and content
 class EditPostHandler(Handler):
@@ -565,6 +574,13 @@ class WelcomeHandler(Handler):
         else:
             self.redirect('/signup')
 
+
+class HelloWorldHandler(webapp2.RequestHandler):
+    def get(self):
+        # Create the handler's response "Hello World!" in plain text.
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.out.write('Hello World!')
+
 """
     Error Handlers
 """
@@ -574,6 +590,7 @@ def handle_404(request, response, exception):
     logging.exception(exception)
     response.write(render_str("404.html"))
     response.set_status(404)
+
 
 def handle_500(request, response, exception):
     response.write(render_str("500.html"))
@@ -592,9 +609,9 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/([0-9]+)/delete', DeletePostHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
-                                DeleteCommentHandler)
+                                DeleteCommentHandler),
                                ],
                               debug=True)
 
 app.error_handlers[404] = handle_404
-app.error_handlers[500] = handle_500
+# app.error_handlers[500] = handle_500
