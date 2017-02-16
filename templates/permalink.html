@@ -76,17 +76,28 @@
         deletePostBtn.addEventListener('click', onDeletePost, false);
     }
 
-    // Delete the post
+    // Function to delete a post
     function onDeletePost(e) {
-        console.log(e.target);
-        console.log(this.dataset);
+        // Get the id of the post to be deleted.
         const postId = this.dataset.id;
-        console.log(postId);
+        const url = '/' + postId;
 
-        const path = '/' + postId + '/delete';
-        console.log(path);
+        function reqListener () {
+          console.log(this.status);
+          if (this.readyState == 4 && this.status == 200) {
+            console.log('success!');
+            // Redirect to the blog front page after half a second delay.
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 500);
+          }
+        }
 
-        post(path, {}, 'POST');
+        // Send the DELETE request via ajax.
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", reqListener);
+        oReq.open("DELETE", url);
+        oReq.send();
     }
 
     /*

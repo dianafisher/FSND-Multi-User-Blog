@@ -372,7 +372,11 @@ class PostHandler(Handler):
             self.error(404)
 
     def delete(self, post_id):
-        print 'delete post with id: {}'.format(post_id)
+        post = Post.get_by_id(int(post_id))
+        if post:
+            post.key.delete()
+        else:
+            self.error(404)
 
 
 ## TODO: Check for both subject and content
