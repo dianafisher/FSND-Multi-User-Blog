@@ -29,11 +29,13 @@
             <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
-        {% endif %}
+        {% else %}
         <div class="btn-group">
             <button class="btn btn-white" name="like-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
             <button class="btn btn-white" name="unlike-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
+            <div class="error">{{like_error}}</div>
         </div>
+        {% endif %}
     </div>
 </div>
 
@@ -70,7 +72,9 @@
      */
     const deletePostBtn = document.querySelector('button[name=delete-post]');
     console.log(deletePostBtn);
-    deletePostBtn.addEventListener('click', onDeletePost, false);
+    if (deletePostBtn) {
+        deletePostBtn.addEventListener('click', onDeletePost, false);
+    }
 
     // Delete the post
     function onDeletePost(e) {
@@ -90,7 +94,9 @@
      */
     const editPostBtn = document.querySelector('button[name=edit-post]');
     console.log(editPostBtn);
-    editPostBtn.addEventListener('click', onEditPost, false);
+    if (editPostBtn) {
+        editPostBtn.addEventListener('click', onEditPost, false);
+    }
 
     function onEditPost(e) {
         console.log(e.target);
@@ -108,9 +114,12 @@
      * Get the like button and add a click event listner to it.
      */
      const likeButton = document.querySelector('button[name=like-post]');
-     likeButton.addEventListener('click', onLikePost, false);
+     if (likeButton) {
+        likeButton.addEventListener('click', onLikePost, false);
+     }
 
      function onLikePost(e) {
+        console.log('like button clicked');
         const postId = this.dataset.id;
         const path = '/' + postId + '/like';
 
@@ -121,7 +130,9 @@
      * Get the unlike button and add a click event listner to it.
      */
      const unlikeButton = document.querySelector('button[name=unlike-post]');
-     unlikeButton.addEventListener('click', onUnlikePost, false);
+     if (unlikeButton) {
+        unlikeButton.addEventListener('click', onUnlikePost, false);
+     }
 
      function onUnlikePost(e) {
         const postId = this.dataset.id;

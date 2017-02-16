@@ -108,14 +108,15 @@ class Handler(webapp2.RequestHandler):
         logging.exception(exception)
 
         # Set a custom message.
-        response.write('An error occurred.')
+        # self.response.write('An error occurred.')
+        self.render("500.html")
 
         # If the exception is a HTTPException, use its error code.
         # Otherwise use a generic 500 error code.
         if isinstance(exception, webapp2.HTTPException):
-            response.set_status(exception.code)
+            self.response.set_status(exception.code)
         else:
-            response.set_status(500)
+            self.response.set_status(500)
 
     def redirect_after_delay(self, redirect_url):
         time.sleep(0.1)
@@ -337,7 +338,7 @@ class PostHandler(Handler):
         comments = post.get_comments()
 
         owner = post.user.get()
-        print owner.key.id()
+
         # create a dictionary to hold any error messages
         params = dict(post=post, comments=comments, owner=owner)
 
@@ -365,7 +366,7 @@ class PostHandler(Handler):
         else:
             self.error(404)
 
-
+## TODO: Check for both subject and content
 class EditPostHandler(Handler):
 
     def get(self, post_id):
@@ -399,14 +400,13 @@ class EditPostHandler(Handler):
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
         if not post:
-            print "post not found"
             self.error(404)
             return
         else:
             subject = self.request.get('subject')
             content = self.request.get('content')
 
-            print "editing post to {}, {}".format(subject, content)
+            # print "editing post to {}, {}".format(subject, content)
             post.subject = subject
             post.content = content
 
@@ -419,21 +419,59 @@ class EditPostHandler(Handler):
 
 class LikePostHandler(Handler):
 
+    def get(self, post_id):
+        self.redirect_after_delay('/{}'.format(post_id))
+
     def post(self, post_id):
         if not self.user:
             self.redirect('/')
 
+        """if this user has already liked this post,
+        then they should not be allowed to like it again"""
+
         post = Post.get_by_id(int(post_id))
         if post:
+
+            # get all likes for this post
+            query = Like.query(Like.post == post.key)
+            results = query.get()
+
+            q = query.filter(Like.user == self.user.key)
+
+            result = q.fetch()
+            print "result = {}".format(result)
+
+            """this user has already liked this post,
+            so don't let them like it again."""
+
+            if result:
+
+                # get the comments
+                comments = post.get_comments()
+                owner = post.user.get()
+
+                # create a dictionary to hold any error messages
+                params = dict(post=post, comments=comments, owner=owner)
+                params['like_error'] = "You have already liked this post."
+                print 'params: {}'.format(params)
+
+                self.render("permalink.html", **params)
+                return
+
             # create new like instance.
             like = Like.new_like(user=self.user.key,
                                  post=post.key)
 
             # reload the page
             self.redirect_after_delay('/{}'.format(post.key.id()))
+        else:
+            self.error(404)
 
 
 class UnlikePostHandler(Handler):
+
+    def get(self, post_id):
+        self.redirect_after_delay('/{}'.format(post_id))
 
     def post(self, post_id):
         if not self.user:
@@ -441,7 +479,7 @@ class UnlikePostHandler(Handler):
 
         post = Post.get_by_id(int(post_id))
         if post:
-            print post.key
+            # print post.key
             query = Like.query(Like.post == post.key)
             like = query.get()
 
@@ -451,9 +489,14 @@ class UnlikePostHandler(Handler):
             like.key.delete()
             # redirect to the post page
             self.redirect_after_delay('/{}'.format(post_id))
+        else:
+            self.error(404)
 
 
 class DeletePostHandler(Handler):
+
+    def get(self, post_id):
+        self.redirect_after_delay('/{}'.format(post_id))
 
     def post(self, post_id):
         post = Post.get_by_id(int(post_id))
@@ -467,6 +510,10 @@ class DeletePostHandler(Handler):
 
 
 class EditCommentHandler(Handler):
+
+    def get(self, post_id):
+        self.redirect_after_delay('/{}'.format(post_id))
+
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
@@ -485,6 +532,9 @@ class EditCommentHandler(Handler):
 
 
 class DeleteCommentHandler(Handler):
+
+    def get(self, post_id):
+        self.redirect_after_delay('/{}'.format(post_id))
 
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
@@ -525,6 +575,10 @@ def handle_404(request, response, exception):
     response.write(render_str("404.html"))
     response.set_status(404)
 
+def handle_500(request, response, exception):
+    response.write(render_str("500.html"))
+    response.set_status(500)
+
 app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/signup', SignupHandler),
                                ('/login', LoginHandler),
@@ -543,3 +597,4 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                               debug=True)
 
 app.error_handlers[404] = handle_404
+app.error_handlers[500] = handle_500

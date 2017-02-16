@@ -567,5 +567,7 @@ textarea.form-control {
 }
 
 .error-message {
-  padding-bottom: 10px;
+    padding-bottom: 10px;
+    font-size: 2em;
+    padding-top: 10px;
 }
