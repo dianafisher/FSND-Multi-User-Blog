@@ -506,22 +506,6 @@ class UnlikePostHandler(Handler):
             self.error(404)
 
 
-class DeletePostHandler(Handler):
-
-    def get(self, post_id):
-        self.redirect_after_delay('/{}'.format(post_id))
-
-    def post(self, post_id):
-        post = Post.get_by_id(int(post_id))
-        if post:
-            post.key.delete()
-            # redirect to the front page
-            self.redirect('/')
-
-        else:
-            self.error(404)
-
-
 class EditCommentHandler(Handler):
 
     def get(self, post_id):
@@ -610,7 +594,6 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/([0-9]+)/edit', EditPostHandler),
                                ('/([0-9]+)/like', LikePostHandler),
                                ('/([0-9]+)/unlike', UnlikePostHandler),
-                               ('/([0-9]+)/delete', DeletePostHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),

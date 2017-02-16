@@ -26,7 +26,8 @@
     <div class="post-buttons">
         {% if user.key.id() == owner.key.id() %}
         <div class="btn-group">
-            <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+            <!-- <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button> -->
+            <a href="/{{post.key.id()}}/edit" class="btn-link"><button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button></a>
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
         {% else %}
@@ -103,11 +104,11 @@
     /*
      * Get the edit post button and add a click event listner to it.
      */
-    const editPostBtn = document.querySelector('button[name=edit-post]');
-    console.log(editPostBtn);
-    if (editPostBtn) {
-        editPostBtn.addEventListener('click', onEditPost, false);
-    }
+    // const editPostBtn = document.querySelector('button[name=edit-post]');
+    // console.log(editPostBtn);
+    // if (editPostBtn) {
+    //     editPostBtn.addEventListener('click', onEditPost, false);
+    // }
 
     function onEditPost(e) {
         console.log(e.target);
@@ -189,16 +190,25 @@
 
         // get the delete button
         const deleteButton = comment.querySelector('button[name=delete-comment]');
-        deleteButton.addEventListener('click', onDeleteComment);
+        if (deleteButton) {
+            deleteButton.addEventListener('click', onDeleteComment);
+        }
 
         const editButton = comment.querySelector('button[name=edit-comment]');
-        editButton.addEventListener('click', onEditComment);
+        if (editButton) {
+            editButton.addEventListener('click', onEditComment);
+        }
 
         const textarea = comment.querySelector('textarea[name=comment-edit]');
-        textarea.addEventListener('keydown', onTextAreaKeyDown, false);
+        if (textarea) {
+            textarea.addEventListener('keydown', onTextAreaKeyDown, false);
+        }
 
         const cancelButton = comment.querySelector('button[name=comment-edit-cancel]');
-        cancelButton.addEventListener('click', onCancelCommentEdit);
+        if (cancelButton) {
+            cancelButton.addEventListener('click', onCancelCommentEdit);
+        }
+
     });
 
     /*
