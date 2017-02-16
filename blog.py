@@ -290,9 +290,11 @@ class NewPostHandler(Handler):
         if self.user:
             self.render('newpost.html')
         else:
+            # redirect to login page if not logged in
             self.redirect("/login")
 
     def post(self):
+        # redirect to front page if not logged in
         if not self.user:
             self.redirect('/')
 
@@ -325,10 +327,13 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
+        print "user = {}".format(self.user)
+        # if no signed in user, redirect to the login page
+        if not self.user:
+            self.redirect('/login')
+            return
 
-        # print 'looking for post with id: {}'.format(post_id)
         post = Post.get_by_id(int(post_id))
-        # print 'post: {}'.format(post)
 
         # show 404 error page if the post cannot be found.
         if not post:
@@ -350,9 +355,10 @@ class PostHandler(Handler):
         self.render("permalink.html", **params)
 
     def post(self, post_id):
-
+        # redirect to front page if not logged in
         if not self.user:
             self.redirect('/')
+            return
 
         post = Post.get_by_id(int(post_id))
         if not post:
@@ -372,6 +378,11 @@ class PostHandler(Handler):
             self.error(404)
 
     def delete(self, post_id):
+        # redirect to login page if not logged in
+        if not self.user:
+            self.redirect('/login')
+            return
+
         post = Post.get_by_id(int(post_id))
         if post:
             post.key.delete()
@@ -385,6 +396,7 @@ class EditPostHandler(Handler):
     def get(self, post_id):
         if not self.user:
             self.redirect('/')
+            return
 
         print "self.user = {}".format(self.user)
 
@@ -438,6 +450,7 @@ class LikePostHandler(Handler):
     def post(self, post_id):
         if not self.user:
             self.redirect('/')
+            return
 
         """if this user has already liked this post,
         then they should not be allowed to like it again"""

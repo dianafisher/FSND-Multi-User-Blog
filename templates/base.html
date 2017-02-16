@@ -29,14 +29,13 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         {% if user %}
-                            <li>{{user.username}} (<a class="login-link" href="/logout">Log Out</a>)
-
+                            <li class="pull-right">Logged in as {{user.username}} (<a class="login-link" href="/logout">Log Out</a>)</li>
                             <li><a href="/newpost" class="btn-link">
-                    <button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> New Post</button>
-                </a></li>
+        <button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Create a New Post</button>
+    </a></li>
                         {% else %}
-                        <li><a href="/login">Log In</a></li>
-                        <li><a href="/signup">Sign Up</a></li>
+                        <!-- <li><a href="/login">Log In</a></li> -->
+                        <!-- <li><a href="/signup">Sign Up</a></li> -->
                         {% endif %}
                     </ul>
                 </nav>

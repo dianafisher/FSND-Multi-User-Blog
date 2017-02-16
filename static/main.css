@@ -19,7 +19,7 @@ video {
 }
 
 a {
-  color: #337ab7;
+  color: #2e8ac1;
   text-decoration: none;
 }
 
@@ -421,9 +421,8 @@ textarea.form-control {
  */
 
  .header {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-  min-height: 56px;
-  transition: min-height 0.3s;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0,0,0,0.26);
 }
 
 .header a:hover, a:focus {

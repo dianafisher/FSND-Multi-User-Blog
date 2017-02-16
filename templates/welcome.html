@@ -2,7 +2,15 @@
 
 {% block content %}
 <h2>Welcome, {{username}}!</h2>
-<div class="user-avatar">
-    <img alt="user thumbnail" src="https://randomuser.me/api/portraits/thumb/men/83.jpg">
+<div class="row">
+    <div class="user-avatar">
+        <img alt="user thumbnail" src="https://randomuser.me/api/portraits/thumb/men/83.jpg">
+    </div>
+</div>
+<div class="row">
+
+    <a href="/newpost" class="btn-link">
+        <button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Create a New Post</button>
+    </a>
 </div>
 {% endblock %}
