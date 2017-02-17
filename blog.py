@@ -216,13 +216,14 @@ class SignupHandler(Handler):
             have_error = True
 
         if have_error:
+            print "params: {}".format(params)
             self.render('signup.html', **params)
         else:
             # make sure the user doesn't already exist
             user = User.by_name(self.username)
             if user:
-                username_error = 'User already exists!'
-                self.render('signup.html', username_error=username_error)
+                params['username_error'] = 'User already exists!'
+                self.render('signup.html', **params)
             else:
                 # create a new User instance
                 u = User.register(self.username, self.password, self.email)

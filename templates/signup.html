@@ -2,32 +2,40 @@
 
 {% block content %}
 <div class="row">
-    <h2>Create an Account</h2>
+    <div class="box">
+        <div class="box-title"><h2>Create an Account</h2></div>
+        <div class="box-content">
+            <div class="row">
+                <div class="col-10">
+                    <p class="form-info">Required fields are followed by <strong><abbr title="required">*</abbr></strong>.</p>
+                    <form role="form" class="form-line" method="post">
+                        <div class="form-group">
+                            <lable for="input-username">Username<strong><abbr title="required">*</abbr></strong></lable>
+                            <input type="text" name="username" value="{{username}}" class="form-control" id="input-username" required>
+                            <p class="error">{{username_error}}</p>
+                        </div>
+                        <div class="form-group">
+                            <lable for="input-password">Password<strong><abbr title="required">*</abbr></strong></lable>
+                            <input type="text" name="password" class="form-control" id="input-password" required>
+                            <p class="error">{{password_error}}</p>
+                        </div>
+                        <div class="form-group">
+                            <lable for="input-verify">Verify Password<strong><abbr title="required">*</abbr></strong></lable>
+                            <input type="password" name="verify" class="form-control" id="input-verify" required>
+                            <p class="error">{{verify_error}}</p>
+                        </div>
+                        <div class="form-group">
+                            <lable for="input-email" >Email (optional)</lable>
+                            <input type="text" name="email" value="{{email}}" class="form-control" id="input-email" autocomplete="email">
+                            <p class="error">{{email_error}}</p>
+                        </div>
+                        <button class="btn btn-primary pull-right" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row">
-    <form role="form" class="form-line" method="post">
-        <div class="form-group">
-            <lable for="input-username" class="sr-only">Username</lable>
-            <input type="text" name="username" value="{{username}}" class="form-control" id="input-username">
-            <p class="error">{{username_error}}</p>
-        </div>
-        <div class="form-group">
-            <lable for="input-password" class="sr-only">Password</lable>
-            <input type="text" name="password" class="form-control" id="input-password">
-            <p class="error">{{password_error}}</p>
-        </div>
-        <div class="form-group">
-            <lable for="input-verify" class="sr-only">Verify Password</lable>
-            <input type="password" name="verify" class="form-control" id="input-verify">
-            <p class="error">{{verify_error}}</p>
-        </div>
-        <div class="form-group">
-            <lable for="input-email" class="sr-only">Email</lable>
-            <input type="text" name="email" value="{{email}}" class="form-control" id="input-email">
-            <p class="error">{{email_error}}</p>
-        </div>
-        <input type="submit">
-    </form>
-</div>
+
 
 {% endblock %}
