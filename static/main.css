@@ -457,7 +457,7 @@ textarea.form-control {
 .logo {
   width: 100px;
   float: left;
-  margin-left: 25px;
+  /*margin-left: 25px;*/
 }
 
 .banner {
@@ -493,7 +493,10 @@ textarea.form-control {
 .user-avatar {
   width: 150px;
   height: 150px;
-  margin: 20px;
+}
+
+.message {
+  margin-top: 20px;
 }
 
 /*
