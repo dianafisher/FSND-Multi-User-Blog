@@ -629,6 +629,10 @@ textarea.form-control {
   height: 150px;
 }
 
+.user-avatar .logo {
+  width: 120px;
+}
+
 .message {
   margin-top: 20px;
 }
