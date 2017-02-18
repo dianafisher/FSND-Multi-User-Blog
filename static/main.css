@@ -19,13 +19,13 @@ video {
 }
 
 a {
-  color: #2e8ac1;
+  color: #F57C00;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #df302c;
+  color: #01579B;
   text-decoration: underline;
 }
 
@@ -43,7 +43,7 @@ h2 {
   font-weight: 300;
   font-size: 1.5em;
   margin: 0;
-  color: #ef9567
+  color: #0288D1;
   padding-top: 10px;
 }
 
@@ -115,6 +115,10 @@ strong {
   font-weight: 700;
 }
 
+button {
+  text-transform: uppercase;
+}
+
 pre {
   font-family: roboto;
   font-size: 1.25em;
@@ -136,6 +140,129 @@ pre {
 
 .inline-flex {
   display: inline-flex;
+}
+
+/*
+ * Material Design
+ */
+
+.display-4 {
+  font-weight: 200; /* light */
+  font-size: 112px;
+}
+
+.display-3 {
+  font-weight: 400; /* normal */
+  font-size: 56px;
+}
+
+.display-2 {
+  font-weight: 400;
+  font-size: 45px;
+}
+
+.display-1 {
+  font-weight: 400;
+  font-size: 34px;
+}
+
+.headline {
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.title {
+  font-weight: 600; /* medium */
+  font-size: 20px;
+}
+
+.subheading {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.body-2 {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.body-1 {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.caption {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.button {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/*
+ * Light Blue color pallete
+ */
+
+.color-500 {
+  color: #03A9F4;
+}
+
+.color-50 {
+  color: #E1F5FE;
+}
+
+.color-100{
+  color: #B3E5FC
+}
+
+.color-200{
+  color: #81D4FA
+}
+
+.color-300{
+  color: #4FC3F7
+}
+
+.color-400{
+  color: #29B6F6
+}
+
+.color-500{
+  color: #03A9F4
+}
+
+.color-600{
+  color: #039BE5
+}
+
+.color-700{
+  color: #0288D1
+}
+
+.color-800{
+  color: #0277BD
+}
+
+.color-900{
+  color: #01579B
+}
+
+.color-A100{
+  color: #80D8FF
+}
+
+.color-A200{
+  color: #40C4FF
+}
+
+.color-A400{
+  color: #00B0FF
+}
+
+.color-A700{
+  color: #0091EA
 }
 
 /*
@@ -259,16 +386,22 @@ pre {
 }
 
 .btn-white {
-  color: inherit;
-  background: white;
-  border: 1px solid #e7eaec;
+  /*color: inherit;*/
+  color: #fff;
+  /*color: #03A9F4;*/
+  background: #0288D1;
+  border: 1px solid #03A9F4;
 }
 .btn-white:hover,
 .btn-white:focus,
 .btn-white:active {
-  color: #fff;
-  background-color: #337ab7;
+  /*color: #fff;*/
+  /*background-color: #337ab7;
   border-color: #337ab7;
+  color: #03A9F4;
+*/
+background: #03A9F4;
+color: #fff;
 }
 
 .btn-red {
@@ -304,10 +437,6 @@ pre {
 
 .btn-red.btn-outline:hover {
   color: #fff;
-}
-
-.btn-link {
-  color: #337ab7;
 }
 
 a.btn-link:hover,
@@ -395,7 +524,6 @@ button.dim:active:before {
 }
 
 .btn-link h2 {
-  color: #2e8ac1;
   padding-left: 10px
 }
 
@@ -435,10 +563,15 @@ textarea.form-control {
  .header {
     padding-bottom: 10px;
     border-bottom: 2px solid rgba(0,0,0,0.26);
+    background: #03A9F4;
+}
+
+.header a {
+  color: #fff;
 }
 
 .header a:hover, a:focus {
-  color: #337ab7;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -455,9 +588,10 @@ textarea.form-control {
 }
 
 .logo {
-  width: 100px;
+  width: 70px;
   float: left;
-  /*margin-left: 25px;*/
+  margin-left: 25px;
+  margin-right: 15px;
 }
 
 .banner {
@@ -589,7 +723,7 @@ textarea.form-control {
   font-weight: 300;
   font-size: 4em;
   margin: 0;
-  color: #ef9567;
+  color: #F57C00;
   padding-top: 10px;
 }
 
