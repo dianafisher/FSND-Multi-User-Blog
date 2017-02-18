@@ -18,9 +18,13 @@
 
 
     <div class="middle-box text-center">
-        <div class="error-title">Page Not Found</div>
+
+        <div class="error-title">Resource Not Found</div>
         <img class="error-icon" src="/static/svg/error-404.svg" alt="404 error icon">
         <div class="error-message">
+            {% if error_message %}
+            <div class="small">{{error_message}}</div>
+            {% endif %}
             <a href="/">Return to Blog</a>
         </div>
 

@@ -118,6 +118,10 @@ class Handler(webapp2.RequestHandler):
         else:
             self.response.set_status(500)
 
+    def render_404(self, error_message):
+        self.render("404.html", error_message=error_message)
+        self.response.set_status(404)
+
     def redirect_after_delay(self, redirect_url):
         time.sleep(0.1)
         self.redirect(redirect_url)
@@ -344,7 +348,8 @@ class PostHandler(Handler):
 
         # show 404 error page if the post cannot be found.
         if not post:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
             return
 
         # get the comments
@@ -369,7 +374,8 @@ class PostHandler(Handler):
 
         post = Post.get_by_id(int(post_id))
         if not post:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
             return
 
         text = self.request.get('comment')
@@ -394,7 +400,8 @@ class PostHandler(Handler):
         if post:
             post.key.delete()
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
 
 
 ## TODO: Check for both subject and content
@@ -410,7 +417,8 @@ class EditPostHandler(Handler):
         post = Post.get_by_id(int(post_id))
         # show 404 error page if the post cannot be found.
         if not post:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
             return
 
         params = dict(post=post)
@@ -437,7 +445,8 @@ class EditPostHandler(Handler):
 
         post = Post.get_by_id(int(post_id))
         if not post:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
             return
         else:
             subject = self.request.get('subject')
@@ -503,7 +512,8 @@ class LikePostHandler(Handler):
             # reload the page
             self.redirect_after_delay('/{}'.format(post.key.id()))
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
 
 
 class UnlikePostHandler(Handler):
@@ -528,7 +538,8 @@ class UnlikePostHandler(Handler):
             # redirect to the post page
             self.redirect_after_delay('/{}'.format(post_id))
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
 
 
 class EditCommentHandler(Handler):
@@ -550,7 +561,8 @@ class EditCommentHandler(Handler):
             # redirect back to the post page
             self.redirect_after_delay('/{}'.format(post_id))
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Comment {} not found.".format(comment_id))
 
 
 class DeleteCommentHandler(Handler):
@@ -568,7 +580,9 @@ class DeleteCommentHandler(Handler):
             # redirect to the post page
             self.redirect_after_delay('/{}'.format(post_id))
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Comment {} not found.".format(comment_id))
+
 
 """
     WelcomeHandler
@@ -597,13 +611,15 @@ class WelcomeHandler(Handler):
 class UserHandler(Handler):
 
     def get(self, user_id):
+        print 'user handler!'
         if not self.user:
             self.redirect('/login')
             return
 
         user = User.get_by_id(int(user_id))
+        print 'user = {}'.format(user)
         if not user:
-            self.error(404)
+            self.render_404(error_message="User {} not found.".format(user_id))
             return
         else:
             self.render('user.html', user=user)
@@ -670,7 +686,7 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
                                ('/users', UsersHandler),
-                               ('/users/([0-9]+)', UserHandler),
+                               ('/user/([0-9]+)', UserHandler),
                                ('/avatars', AvatarHandler)
                                ],
                               debug=True)

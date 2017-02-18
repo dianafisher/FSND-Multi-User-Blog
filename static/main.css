@@ -43,7 +43,7 @@ h2 {
   font-weight: 300;
   font-size: 1.5em;
   margin: 0;
-  color: #2e8ac1;
+  color: #ef9567
   padding-top: 10px;
 }
 
@@ -573,7 +573,7 @@ textarea.form-control {
   font-weight: 300;
   font-size: 4em;
   margin: 0;
-  color: #2e8ac1;
+  color: #ef9567;
   padding-top: 10px;
 }
 
@@ -581,4 +581,8 @@ textarea.form-control {
     padding-bottom: 10px;
     font-size: 2em;
     padding-top: 10px;
+}
+
+.error-message .small {
+  margin-bottom: 20px;
 }
