@@ -328,7 +328,7 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
-        print "user = {}".format(self.user)
+        # print "user = {}".format(self.user)
         # if no signed in user, redirect to the login page
         if not self.user:
             self.redirect('/login')
@@ -352,13 +352,13 @@ class PostHandler(Handler):
         # create a dictionary to hold any error messages
         params = dict(post=post, comments=comments, owner=owner)
 
-        print 'owner: {}'.format(owner)
+        # print 'owner: {}'.format(owner)
         self.render("permalink.html", **params)
 
     def post(self, post_id):
-        # redirect to front page if not logged in
+        # if no signed in user, redirect to the login page
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
             return
 
         post = Post.get_by_id(int(post_id))
@@ -424,6 +424,11 @@ class EditPostHandler(Handler):
             self.render("editpost.html", **params)
 
     def post(self, post_id):
+        # if no signed in user, redirect to the login page
+        if not self.user:
+            self.redirect('/login')
+            return
+
         post = Post.get_by_id(int(post_id))
         if not post:
             self.error(404)
@@ -572,16 +577,46 @@ class WelcomeHandler(Handler):
 
     def get(self):
         if self.user:
-            self.render('welcome.html', username=self.user.username)
+            self.render('welcome.html', user=self.user)
         else:
             self.redirect('/signup')
 
+"""
+    UserHandler
 
-class HelloWorldHandler(webapp2.RequestHandler):
+
+"""
+
+
+class UserHandler(Handler):
+
+    def get(self, user_id):
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        user = User.get_by_id(int(user_id))
+        if not user:
+            self.error(404)
+            return
+        else:
+            self.render('user.html', user=user)
+
+
+class AvatarHandler(Handler):
+
     def get(self):
-        # Create the handler's response "Hello World!" in plain text.
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.out.write('Hello World!')
+        avatars = []
+        for x in range(115):
+            avatar = {}
+            avatar['name'] = 'avatar_{}.svg'.format(x)
+            avatar['url'] = '/static/svg/user_avatar_{}.svg'.format(x)
+            avatars.append(avatar)
+
+        self.render('avatars.html', avatars=avatars)
+
+
+
 
 """
     Error Handlers
@@ -611,6 +646,8 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
+                               ('/user/([0-9]+)', UserHandler),
+                               ('/avatars', AvatarHandler)
                                ],
                               debug=True)
 

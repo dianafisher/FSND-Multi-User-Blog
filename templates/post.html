@@ -1,16 +1,17 @@
 {% block content %}
 <!-- <div class="row"> -->
-    <div class="col-12">
+    <div class="col-4">
         <div class="box">
             <div class="box-title">
                 <a href="/{{post.key.id()}}" class="btn-link"><h2>{{post.subject}}</h2></a>
                 <div class="small">
-                    <strong class="post-username">Posted by {{post.user.get().username}} on {{post.created.strftime("%b %d, %Y")}}
-                        <div class="pull-right">
-                            <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
-                            <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
-                        </div>
-                    </strong>
+                    <div class="row">
+                        <strong class="post-byline">{{post.created.strftime("%b %d, %Y")}} by <a href="/user/{{author.key.id()}}" class="btn-link">{{author.username}}</a></strong>
+                    </div>
+                    <div class="row">
+                        <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
+                        <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
+                    </div>
                 </div>
             </div>
             <div class="box-content">

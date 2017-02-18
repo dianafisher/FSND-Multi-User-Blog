@@ -134,6 +134,10 @@ pre {
   text-align: center;
 }
 
+.inline-flex {
+  display: inline-flex;
+}
+
 /*
  * Grid
  */
@@ -147,7 +151,7 @@ pre {
 .row {
   width: 100%;
   margin-bottom: 20px;
-  display: block;
+  display: flex;
 }
 
 .trimmed {
@@ -259,6 +263,13 @@ pre {
   background: white;
   border: 1px solid #e7eaec;
 }
+.btn-white:hover,
+.btn-white:focus,
+.btn-white:active {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
 
 .btn-red {
     background-color: #ed5565;
@@ -296,7 +307,7 @@ pre {
 }
 
 .btn-link {
-  color: #337ab7;;
+  color: #337ab7;
 }
 
 a.btn-link:hover,
@@ -465,36 +476,32 @@ textarea.form-control {
  * Login
  */
 
- .login-link {
+ /*.login-link {
     color: gray;
     text-decoration: none;
 }
 
 .login-link:visited {
     color: gray;
-}
+}*/
 
 /*
  * Welcome
  */
 
 .user-avatar {
-  width: 52px;
-  height: 52px;
-  border: 1px solid #e7eaec;
+  width: 150px;
+  height: 150px;
+  margin: 20px;
 }
-
-.user-avatar img {
-  border-radius: 50%;
-}
-
 
 /*
  * Posts
  */
 
- .post-username {
+ .post-byline {
   padding-right: 5px;
+  background: rgba(0,0,0,0.05);
  }
 
  .post {

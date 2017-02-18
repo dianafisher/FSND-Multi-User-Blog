@@ -17,7 +17,7 @@
             <header class="header">
                 <div class="header-inner">
                     <a href="/">
-                        <img class="logo" src="/static/blogging.svg" alt="blog logo SVG">
+                        <img class="logo" src="/static/svg/blogging.svg" alt="blog logo SVG">
                     </a>
                     <h1 class="header-title"><a href="/">Blog</a></h1>
                 </div>
@@ -30,9 +30,6 @@
                     <ul class="nav-list">
                         {% if user %}
                             <li class="pull-right">Logged in as {{user.username}} (<a class="login-link" href="/logout">Log Out</a>)</li>
-                            <li><a href="/newpost" class="btn-link">
-        <button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Create a New Post</button>
-    </a></li>
                         {% else %}
                         <li><a href="/login">Log In</a></li>
                         <li><a href="/signup">Sign Up</a></li>
@@ -46,6 +43,9 @@
     <div class="row">
         <footer>
             <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            <div>User icons designed by <a href="https://roundicons.com/" title="Roundicons">Roundicons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
         </footer>
     </div>
 

@@ -35,8 +35,11 @@ class Post(ndb.Model):
         likes_query = Like.query(Like.post == self.key)
         num_likes = likes_query.count()
 
+        user = self.user.get()
+
         return utils.render_str('post.html',
                                 post=self,
+                                author=user,
                                 comment_count=num_comments,
                                 like_count=num_likes)
 

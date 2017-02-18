@@ -1,16 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Welcome, {{username}}!</h2>
+<h2>Welcome, {{user.username}}!</h2>
 <div class="row">
     <div class="user-avatar">
-        <img alt="user thumbnail" src="https://randomuser.me/api/portraits/thumb/men/83.jpg">
+        <!-- <img alt="user thumbnail" src="{{user.avatar_url}}"> -->
+        <img class="logo" src="{{user.avatar_url}}" alt="user thumbnail">
     </div>
 </div>
 <div class="row">
-
     <a href="/newpost" class="btn-link">
         <button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Create a New Post</button>
     </a>
+</div>
+
+<div class="row">
+  <div class="box">
+    <div class="box-title">
+      <h2>Your Posts</h2>
+    </div>
+    <div class="row">
+    {% for post in posts %}
+        {{ post.render() | safe }}
+    {% endfor %}
+</div>
+    </div>
+  </div>
 </div>
 {% endblock %}
