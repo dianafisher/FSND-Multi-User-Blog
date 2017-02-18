@@ -61,7 +61,7 @@ def get_by_urlsafe(urlsafe, model):
     """
 
     key = ndb.Key(urlsafe=urlsafe)
-    print '---> key: {}'.format(key)
+    # print '---> key: {}'.format(key)
     entity = key.get()
     if not entity:
         return None
@@ -103,7 +103,7 @@ class Handler(webapp2.RequestHandler):
 
     def handle_exception(self, exception, debug):
         print exception
-        print 'exception: {}'.format(exception)
+        print '--> !!! exception: {}'.format(exception)
         # Log the error.
         logging.exception(exception)
 
@@ -247,6 +247,12 @@ class SignupHandler(Handler):
 class LoginHandler(Handler):
 
     def get(self):
+        # if the user is already logged in, redirect to the front page.
+        if self.user:
+            self.redirect('/')
+            return
+
+        # otherwise, show the login page
         self.render('login.html')
 
     def post(self):
@@ -603,6 +609,23 @@ class UserHandler(Handler):
             self.render('user.html', user=user)
 
 
+"""
+    UsersHandler
+
+    Returns a list of all users
+"""
+
+
+class UsersHandler(Handler):
+
+    def get(self):
+        print "users get handler.."
+        pass
+
+    def post(self):
+        pass
+
+
 class AvatarHandler(Handler):
 
     def get(self):
@@ -646,10 +669,11 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
-                               ('/user/([0-9]+)', UserHandler),
+                               ('/users', UsersHandler),
+                               ('/users/([0-9]+)', UserHandler),
                                ('/avatars', AvatarHandler)
                                ],
                               debug=True)
 
 app.error_handlers[404] = handle_404
-# app.error_handlers[500] = handle_500
+app.error_handlers[500] = handle_500

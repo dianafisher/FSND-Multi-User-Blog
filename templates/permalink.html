@@ -41,23 +41,24 @@
 </div>
 
 <div class="row">
-    <!-- <div class="col-12"> -->
-    <div class="box-title">
-        <h2>Comments:</h2>
-    </div>
-    <div class="box-content">
-            {% for comment in comments %}
-                {{ comment.render(user) | safe }}
-            {% endfor %}
-        <div class="row">
-            <div class="comment-body">
-                <form role="form" class="form-inline" method="post" name="comment-form">
-                    <textarea class="form-control" name="comment" placeholder="Write a comment... (press Enter to submit)"></textarea>
-                    <!-- <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-commenting-o" aria-hidden="true"></i> Post Comment</button> -->
-                </form>
-            </div>
+    <div class="box">
+        <div class="box-title">
+            <h2>Comments:</h2>
         </div>
-        <div class="row"></div>
+        <div class="box-content">
+                {% for comment in comments %}
+                    {{ comment.render(user) | safe }}
+                {% endfor %}
+            <div class="row">
+                <div class="comment-body">
+                    <form role="form" class="form-inline" method="post" name="comment-form">
+                        <textarea class="form-control" name="comment" placeholder="Write a comment... (press Enter to submit)"></textarea>
+                        <!-- <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-commenting-o" aria-hidden="true"></i> Post Comment</button> -->
+                    </form>
+                </div>
+            </div>
+            <div class="row"></div>
+        </div>
     </div>
 </div>
 

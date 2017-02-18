@@ -366,6 +366,7 @@ button.dim:active:before {
   margin-bottom: 25px;
   margin-top: 0;
   padding: 0;
+  width: 100%;
 }
 
 .box-content {
@@ -538,9 +539,18 @@ textarea.form-control {
   border-bottom: 1px solid #e7eaec;
 }
 
+.comment-body {
+  width: 100%;
+}
+
 .comment-body textarea{
   height: 70px;
   padding: 0;
+}
+
+.comment-body input[type=submit] {
+  float: right;
+  margin-top: 10px;
 }
 
 .comment-edit .form-inline {
@@ -549,11 +559,6 @@ textarea.form-control {
 
 .comment-edit textarea {
   height: 70px;
-}
-
-.comment-body input[type=submit] {
-  float: right;
-  margin-top: 10px;
 }
 
 .error {
