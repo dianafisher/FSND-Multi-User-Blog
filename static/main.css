@@ -60,8 +60,12 @@ h4 {
 }
 
 header {
+    max-width: 1200px;
     width: 100%;
     padding-top: 20px;
+    padding-bottom: 10px;
+    /*border-bottom: 1px solid rgba(0,0,0,0.26);*/
+    margin-bottom: 10px;
 }
 
 footer {
@@ -205,64 +209,64 @@ pre {
  * Light Blue color pallete
  */
 
-.color-500 {
-  color: #03A9F4;
+.light-blue-500 {
+  background: #03A9F4;
 }
 
-.color-50 {
-  color: #E1F5FE;
+.light-blue-50 {
+  background: #E1F5FE;
 }
 
-.color-100{
-  color: #B3E5FC
+.light-blue-100{
+  background: #B3E5FC
 }
 
-.color-200{
-  color: #81D4FA
+.light-blue-200{
+  background: #81D4FA
 }
 
-.color-300{
-  color: #4FC3F7
+.light-blue-300{
+  background: #4FC3F7
 }
 
-.color-400{
-  color: #29B6F6
+.light-blue-400{
+  background: #29B6F6
 }
 
-.color-500{
-  color: #03A9F4
+.light-blue-500{
+  background: #03A9F4
 }
 
-.color-600{
-  color: #039BE5
+.light-blue-600{
+  background: #039BE5
 }
 
-.color-700{
-  color: #0288D1
+.light-blue-700{
+  background: #0288D1
 }
 
-.color-800{
-  color: #0277BD
+.light-blue-800{
+  background: #0277BD
 }
 
-.color-900{
-  color: #01579B
+.light-blue-900{
+  background: #01579B
 }
 
-.color-A100{
-  color: #80D8FF
+.light-blue-A100{
+  background: #80D8FF
 }
 
-.color-A200{
-  color: #40C4FF
+.light-blue-A200{
+  background: #40C4FF
 }
 
-.color-A400{
-  color: #00B0FF
+.light-blue-A400{
+  background: #00B0FF
 }
 
-.color-A700{
-  color: #0091EA
+.light-blue-A700{
+  background: #0091EA
 }
 
 /*
@@ -386,22 +390,15 @@ pre {
 }
 
 .btn-white {
-  /*color: inherit;*/
   color: #fff;
-  /*color: #03A9F4;*/
   background: #0288D1;
   border: 1px solid #03A9F4;
 }
 .btn-white:hover,
 .btn-white:focus,
 .btn-white:active {
-  /*color: #fff;*/
-  /*background-color: #337ab7;
-  border-color: #337ab7;
-  color: #03A9F4;
-*/
-background: #03A9F4;
-color: #fff;
+  background: #03A9F4;
+  color: #fff;
 }
 
 .btn-red {
@@ -560,17 +557,48 @@ textarea.form-control {
  * Header
  */
 
- .header {
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0,0,0,0.26);
-    background: #03A9F4;
+ .site-header {
+    color: #fff;
+    /*height: 256px;*/
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
 }
 
-.header a {
+.site-header .wrapper {
+  z-index: 1;
+  position: absolute;
+  top:0;
+  right:0;
+  left:0;
+  height: 64px;
+}
+
+.header {
+  position: absolute;
+  bottom: -12px;
+  right: 0;
+  left: 0;
+  overflow: hidden;
   color: #fff;
 }
 
-.header a:hover, a:focus {
+.shadow-image {
+    background-image: url('../static/shadow.png');
+    background-repeat: repeat-x;
+    background-size: 1px 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    top: 136px;
+    width: 100%;
+}
+
+header a {
+  color: #fff;
+}
+
+header a:hover, a:focus {
   color: #fff;
   text-decoration: none;
 }
@@ -579,6 +607,7 @@ textarea.form-control {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
 }
 
 .header-title {
@@ -607,18 +636,6 @@ textarea.form-control {
   height: 70px;
 }
 
-/*
- * Login
- */
-
- /*.login-link {
-    color: gray;
-    text-decoration: none;
-}
-
-.login-link:visited {
-    color: gray;
-}*/
 
 /*
  * Welcome
@@ -637,6 +654,10 @@ textarea.form-control {
   margin-top: 20px;
 }
 
+.content {
+  height: 156px;
+  width: 100%;
+}
 /*
  * Posts
  */
