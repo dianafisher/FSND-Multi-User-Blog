@@ -539,7 +539,12 @@ textarea.form-control {
 
 .comment {
   padding-bottom: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid #e7eaec;
+}
+
+.comment-user {
+  margin-bottom: 5px;
 }
 
 .comment-body {
@@ -556,12 +561,20 @@ textarea.form-control {
   margin-top: 10px;
 }
 
+.comment-text {
+  margin-bottom: 10px;
+}
+
 .comment-edit .form-inline {
   display: none;
 }
 
 .comment-edit textarea {
   height: 70px;
+}
+
+.avatar {
+  width: 25px;
 }
 
 .error {

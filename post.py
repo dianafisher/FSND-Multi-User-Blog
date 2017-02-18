@@ -46,7 +46,7 @@ class Post(ndb.Model):
     def get_comments(self):
         """queries the datastore for comments on this post"""
         comments_query = Comment.query(Comment.post == self.key)\
-            .order(-Comment.created)
+            .order(Comment.created)
         comments = comments_query.fetch()
         return comments
 

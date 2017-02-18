@@ -1,14 +1,17 @@
 {% block content %}
         <div class="comment" data-id="{{ comment.key.id() }}">
             <div class="comment-user">
-                {{ comment.user.get().username }}
+            <img class="avatar" src="{{comment_user.avatar_url}}" alt="user thumbnail">
+
+                {{ comment_user.username }}
                 <span class="text-muted post-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{comment.created.strftime("%b %d, %Y")}}</span>
             </div>
 
             <div class="comment-body">
-                {{ comment.content }}
-                <br />
-                {% if comment.user.get().key.id() == user.key.id() %}
+                <div class="comment-text">
+                    {{ comment.content }}
+                </div>
+                {% if comment_user.key.id() == user.key.id() %}
                 <div class="comment-buttons">
                     <div class="btn-group">
                         <button class="btn btn-white" name="edit-comment" data-id="{{comment.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
