@@ -231,6 +231,7 @@ class SignupHandler(Handler):
             else:
                 # create a new User instance
                 u = User.register(self.username, self.password, self.email)
+                print 'new user: {}'.format(u)
 
                 # store it in the database
                 user_key = u.put()
@@ -611,18 +612,18 @@ class WelcomeHandler(Handler):
 class UserHandler(Handler):
 
     def get(self, user_id):
-        print 'user handler!'
+
         if not self.user:
             self.redirect('/login')
             return
 
-        user = User.get_by_id(int(user_id))
-        print 'user = {}'.format(user)
-        if not user:
+        u = User.by_id(int(user_id))
+        print 'user = {}'.format(u)
+        if not u:
             self.render_404(error_message="User {} not found.".format(user_id))
             return
         else:
-            self.render('user.html', user=user)
+            self.render('user.html', u=u)
 
 
 """
@@ -653,8 +654,6 @@ class AvatarHandler(Handler):
             avatars.append(avatar)
 
         self.render('avatars.html', avatars=avatars)
-
-
 
 
 """
