@@ -660,6 +660,56 @@ header a:hover, a:focus {
   width: 100%;
   padding-left: 30px;
 }
+
+/*
+ * Nav Bar
+ */
+
+.nav {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 32px;
+    letter-spacing: 0.25px;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  white-space: nowrap;
+  display: inline-block;
+  font-size: 0;
+}
+
+.nav-item {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 20px 12px 21px;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.nav .nav-item a {
+    /*display: inline-block;
+    padding: 20px 12px 21px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 700;*/
+    transition: border-bottom-color .1s ease-out;
+    /*user-select: none;*/
+}
+
+.nav .nav-item a:hover,
+.nav .nav-item a:focus,
+.nav .nav-item a:active {
+  text-decoration: none;
+  color:  #F57C00;
+}
+
 /*
  * Posts
  */

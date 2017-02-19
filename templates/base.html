@@ -22,20 +22,19 @@
                     </a>
                     <h1 class="display-3"><a href="/"> Blog</a></h1>
                 </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        {% if user %}
+                            <li class="nav-item">Logged in as {{user.username}} (<a class="login-link" href="/logout">Log Out</a>)</li>
+                        {% else %}
+                        <li class="nav-item"><a href="/login">Log In</a></li>
+                        <li class="nav-item"><a href="/signup">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                    <div style="opacity"></div>
+                </nav>
             </header>
             <div class="content">
-                <div class="row">
-                    <nav class="nav">
-                        <ul class="nav-list">
-                            {% if user %}
-                                <li class="pull-right">Logged in as {{user.username}} (<a class="login-link" href="/logout">Log Out</a>)</li>
-                            {% else %}
-                            <li><a href="/login">Log In</a></li>
-                            <li><a href="/signup">Sign Up</a></li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
             {% block content %}
 
             {% endblock %}
