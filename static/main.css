@@ -60,7 +60,7 @@ h4 {
 }
 
 header {
-    max-width: 1200px;
+    /*max-width: 1200px;*/
     width: 100%;
     padding-top: 20px;
     padding-bottom: 10px;
@@ -275,7 +275,7 @@ pre {
 
 .grid {
   margin: 0 auto;
-  max-width: 1200px;
+  /*max-width: 1200px;*/
   width: 100%;
 }
 
@@ -655,8 +655,10 @@ header a:hover, a:focus {
 }
 
 .content {
-  height: 156px;
+  position: absolute;
+  top: 156px;
   width: 100%;
+  padding-left: 30px;
 }
 /*
  * Posts
