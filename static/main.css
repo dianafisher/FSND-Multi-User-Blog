@@ -36,14 +36,12 @@ header, nav, footer, section, article, div {
 h1 {
     color: #708fc1;
     margin:10px;
-    /*height: 50px;*/
 }
 
 h2 {
   font-weight: 300;
   font-size: 1.5em;
   margin: 0;
-  color: #0288D1;
   padding-top: 10px;
 }
 
@@ -213,36 +211,56 @@ pre {
   background: #03A9F4;
 }
 
+.foreground-light-blue-500 {
+  color: #03A9F4;
+}
+
 .light-blue-50 {
   background: #E1F5FE;
 }
 
-.light-blue-100{
+.foreground-light-blue-50 {
+  color: #E1F5FE;
+}
+
+.light-blue-100 {
   background: #B3E5FC
 }
 
-.light-blue-200{
+.foreground-light-blue-100 {
+  color: #B3E5FC
+}
+
+.light-blue-200 {
   background: #81D4FA
 }
 
-.light-blue-300{
+.foreground-light-blue-200 {
+  color: #81D4FA
+}
+
+.light-blue-300 {
   background: #4FC3F7
 }
 
-.light-blue-400{
+.light-blue-400 {
   background: #29B6F6
 }
 
-.light-blue-500{
+.light-blue-500 {
   background: #03A9F4
 }
 
-.light-blue-600{
+.light-blue-600 {
   background: #039BE5
 }
 
-.light-blue-700{
+.light-blue-700 {
   background: #0288D1
+}
+
+.foreground-light-blue-700 {
+  color: #0288D1
 }
 
 .light-blue-800{
@@ -391,13 +409,13 @@ pre {
 
 .btn-white {
   color: #fff;
-  background: #0288D1;
+  background: #03A9F4;
   border: 1px solid #03A9F4;
 }
 .btn-white:hover,
 .btn-white:focus,
 .btn-white:active {
-  background: #03A9F4;
+  background: #01579B;
   color: #fff;
 }
 
@@ -557,7 +575,7 @@ textarea.form-control {
  * Header
  */
 
- .site-header {
+.site-header {
     color: #fff;
     /*height: 256px;*/
     position: fixed;
@@ -659,6 +677,7 @@ header a:hover, a:focus {
   top: 156px;
   width: 100%;
   padding-left: 30px;
+  padding-right: 30px;
 }
 
 /*
@@ -693,33 +712,62 @@ header a:hover, a:focus {
 }
 
 .nav .nav-item a {
-    /*display: inline-block;
-    padding: 20px 12px 21px;
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 1;
-    font-weight: 700;*/
-    transition: border-bottom-color .1s ease-out;
-    /*user-select: none;*/
+  transition: border-bottom-color .1s ease-out;
 }
 
 .nav .nav-item a:hover,
 .nav .nav-item a:focus,
 .nav .nav-item a:active {
   text-decoration: none;
-  color:  #F57C00;
+  color:  #01579B;
+}
+
+.nav-item button {
+  background: #F57C00;
+  border: 1px solid #03A9F4;
+}
+
+.nav-item button:hover,
+.nav-item button:focus,
+.nav-item button:active {
+  background: #01579B;
 }
 
 /*
  * Posts
  */
 
+ .card {
+  background-color: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+  overflow: hidden;
+  padding: 20px;
+  height: 500px;
+  margin: 5px;
+  transition: box-shadow 0.218s;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-title h2 {
+  padding-top: 0;
+  padding-bottom: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
  .post-byline {
   padding-right: 5px;
   background: rgba(0,0,0,0.05);
- }
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+}
 
- .post {
+.post {
     padding: 10px;
 }
 
@@ -734,7 +782,8 @@ header a:hover, a:focus {
 }
 
 .post-statistic {
-  padding-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .post-date {

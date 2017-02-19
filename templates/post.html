@@ -1,27 +1,25 @@
 {% block content %}
 <!-- <div class="row"> -->
-    <div class="col-4">
-        <div class="box">
-            <div class="box-title">
-                <!-- <a href="/{{post.key.id()}}" class="btn-link"><h2>{{post.subject}}</h2></a> -->
-                <h2>{{post.subject}}</h2>
-                <div class="small">
-                    <div class="row">
-                        <strong class="post-byline">{{post.created.strftime("%b %d, %Y")}} by <a href="/user/{{author.key.id()}}" class="btn-link">{{author.username}}</a></strong>
-                    </div>
-                    <div class="row">
-                        <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
-                        <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
-                    </div>
+    <div class="col-12 card">
+        <div class="card-title">
+            <!-- <a href="/{{post.key.id()}}" class="btn-link"><h2>{{post.subject}}</h2></a> -->
+            <h2>{{post.subject}}</h2>
+            <div class="small">
+                <div class="row">
+                    <strong class="post-byline">{{post.created.strftime("%b %d, %Y")}} by <a href="/user/{{author.key.id()}}" class="btn-link">{{author.username}}</a></strong>
+                </div>
+                <div class="row">
+                    <i class="fa fa-heart post-statistic" aria-hidden="true"></i> {{like_count}} likes
+                    <i class="fa fa-comments post-statistic" aria-hidden="true"></i>   {{comment_count}} comments
                 </div>
             </div>
-            <div class="box-content">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="post-content">
-                            <pre class="post-content">{{post.content | safe }}</pre>
-                            <a href="/{{post.key.id()}}" class="btn-link"><h2>more ...</h2></a>
-                        </div>
+        </div>
+        <div class="box-content">
+            <div class="row">
+                <div class="col-10">
+                    <div class="post-content">
+                        <pre class="post-content">{{post.content | safe }}</pre>
+                        <a href="/{{post.key.id()}}" class="btn-link"><h2>more ...</h2></a>
                     </div>
                 </div>
             </div>

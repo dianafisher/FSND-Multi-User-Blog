@@ -25,7 +25,10 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         {% if user %}
+                            <li class="nav-item"><a href="/newpost" class="btn-link"><button class="btn btn-white" type="button"><i class="fa fa-plus" aria-hidden="true"></i> New Post</button></a>
+                            </li>
                             <li class="nav-item">Logged in as {{user.username}} (<a class="login-link" href="/logout">Log Out</a>)</li>
+
                         {% else %}
                         <li class="nav-item"><a href="/login">Log In</a></li>
                         <li class="nav-item"><a href="/signup">Sign Up</a></li>
