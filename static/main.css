@@ -8,7 +8,7 @@ html {
 
 body {
     font-family: "Roboto", sans-serif;
-    color: #2d3c49;
+    color: #525f6b;
 }
 
 img,
@@ -71,6 +71,7 @@ footer {
   padding-top: 10px;
   font-size: 0.75em;
   width: 100%;
+  padding-left: 30px;
 }
 
 article {
@@ -132,8 +133,8 @@ pre {
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
 }
 
 .text-center {
@@ -300,7 +301,7 @@ pre {
 .row {
   width: 100%;
   margin-bottom: 20px;
-  display: flex;
+  /*display: flex;*/
 }
 
 .trimmed {
@@ -654,6 +655,10 @@ header a:hover, a:focus {
   height: 70px;
 }
 
+.login-link {
+  color: #F57C00;
+}
+
 
 /*
  * Welcome
@@ -673,8 +678,7 @@ header a:hover, a:focus {
 }
 
 .content {
-  position: absolute;
-  top: 156px;
+  padding-top: 156px;
   width: 100%;
   padding-left: 30px;
   padding-right: 30px;
@@ -742,13 +746,18 @@ header a:hover, a:focus {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
   overflow: hidden;
   padding: 20px;
-  height: 500px;
+  height: 120px;
   margin: 5px;
   transition: box-shadow 0.218s;
+  cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 10px 14px rgba(0,0,0,.2), 0 4px 15px rgba(0,0,0,.2);
 }
 
 .card-title {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .card-title h2 {
@@ -764,7 +773,7 @@ header a:hover, a:focus {
   background: rgba(0,0,0,0.05);
   width: 100%;
   text-transform: uppercase;
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .post {
