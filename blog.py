@@ -598,7 +598,10 @@ class WelcomeHandler(Handler):
 
     def get(self):
         if self.user:
-            self.render('welcome.html', user=self.user)
+            # Get the posts authored by this user.
+            query = Post.query(Post.user == self.user.key)
+            posts = query.fetch()
+            self.render('welcome.html', user=self.user, posts=posts)
         else:
             self.redirect('/signup')
 
@@ -623,24 +626,10 @@ class UserHandler(Handler):
             self.render_404(error_message="User {} not found.".format(user_id))
             return
         else:
-            self.render('user.html', u=u)
-
-
-"""
-    UsersHandler
-
-    Returns a list of all users
-"""
-
-
-class UsersHandler(Handler):
-
-    def get(self):
-        print "users get handler.."
-        pass
-
-    def post(self):
-        pass
+            # Get the posts authored by this user.
+            query = Post.query(Post.user == u.key)
+            posts = query.fetch()
+            self.render('user.html', u=u, posts=posts)
 
 
 class AvatarHandler(Handler):
@@ -684,7 +673,6 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
-                               ('/users', UsersHandler),
                                ('/user/([0-9]+)', UserHandler),
                                ('/avatars', AvatarHandler)
                                ],

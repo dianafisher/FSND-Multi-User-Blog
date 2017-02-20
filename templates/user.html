@@ -10,14 +10,32 @@
 <div class="row">
   <div class="box">
     <div class="box-title">
-      <!-- <h2>Your Posts</h2> -->
     </div>
     <div class="row">
-    <!-- {% for post in posts %}
-        {{ post.render() | safe }}
-    {% endfor %} -->
-</div>
+      {% for post in posts %}
+          {{ post.render() | safe }}
+      {% endfor %}
     </div>
   </div>
 </div>
 {% endblock %}
+
+{% block tail_script %}
+<script>
+
+    // Get each post card.
+    const posts = document.querySelectorAll('.card');
+    console.log(posts);
+    // Add a click listener to each card.
+    posts.forEach(post => {
+        post.addEventListener('click', onPostSelected);
+    });
+
+    function onPostSelected(e) {
+        const postId = this.dataset.id;
+        console.log('post id ' + postId + ' selected');
+        window.location.href = "/" + postId;
+    }
+
+</script>
+{% endblock tail_script %}

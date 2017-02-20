@@ -58,11 +58,9 @@ h4 {
 }
 
 header {
-    /*max-width: 1200px;*/
     width: 100%;
     padding-top: 20px;
     padding-bottom: 10px;
-    /*border-bottom: 1px solid rgba(0,0,0,0.26);*/
     margin-bottom: 10px;
 }
 
@@ -671,6 +669,7 @@ header a:hover, a:focus {
 
 .user-avatar .logo {
   width: 120px;
+  margin-top: 15px;
 }
 
 .message {
