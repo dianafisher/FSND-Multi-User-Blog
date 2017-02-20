@@ -8,3 +8,23 @@
     {% endfor %}
 </div>
 {% endblock %}
+
+{% block tail_script %}
+<script>
+
+    // Get each post card.
+    const posts = document.querySelectorAll('.card');
+    console.log(posts);
+    // Add a click listener to each card.
+    posts.forEach(post => {
+        post.addEventListener('click', onPostSelected);
+    });
+
+    function onPostSelected(e) {
+        const postId = this.dataset.id;
+        console.log('post id ' + postId + ' selected');
+        window.location.href = "/" + postId;
+    }
+
+</script>
+{% endblock tail_script %}
