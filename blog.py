@@ -284,8 +284,11 @@ class LoginHandler(Handler):
 class LogoutHandler(Handler):
 
     def get(self):
-        self.logout()
-        self.redirect('/signup')
+        if self.user:
+            self.logout()
+            self.redirect('/signup')
+        else:
+            self.redirect('/')
 
 """
     NewPostHandler
@@ -421,8 +424,9 @@ class PostHandler(Handler):
 class EditPostHandler(Handler):
 
     def get(self, post_id):
+        # if not looged in, redirect to the login page.
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
             return
 
         post = Post.get_by_id(int(post_id))
