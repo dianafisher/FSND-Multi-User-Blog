@@ -611,11 +611,12 @@ textarea.form-control {
     width: 100%;
 }
 
-header a {
+.site-header a {
   color: #fff;
 }
 
-header a:hover, a:focus {
+.site-header a:hover,
+.site-header a:focus {
   color: #fff;
   text-decoration: none;
 }

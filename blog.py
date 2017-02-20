@@ -499,18 +499,6 @@ class LikePostHandler(Handler):
         post = Post.get_by_id(int(post_id))
         if post:
 
-            # # get all likes for this post
-            # query = Like.query(Like.post == post.key)
-            # results = query.get()
-
-            # q = query.filter(Like.user == self.user.key)
-
-            # result = q.fetch()
-            # print "result = {}".format(result)
-
-            # """this user has already liked this post,
-            # so don't let them like it again."""
-
             if post.is_liked_by(self.user):
 
                 # get the comments
@@ -520,7 +508,7 @@ class LikePostHandler(Handler):
                 # create a dictionary to hold any error messages
                 params = dict(post=post, comments=comments, owner=owner)
                 params['like_error'] = "You have already liked this post."
-                print 'params: {}'.format(params)
+                # print 'params: {}'.format(params)
 
                 self.render("permalink.html", **params)
                 return
@@ -571,7 +559,6 @@ class EditCommentHandler(Handler):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
             text = self.request.get('comment-edit')
-            print 'new comment text: {}'.format(text)
             comment.content = text
             comment.put()
 

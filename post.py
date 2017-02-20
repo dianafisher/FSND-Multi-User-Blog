@@ -31,17 +31,27 @@ class Post(ndb.Model):
             .order(-Comment.created)
 
         num_comments = comments_query.count()
+        if num_comments == 1:
+            text = "comment"
+        else:
+            text = "comments"
+        comment_count = "{} {}".format(num_comments, text)
 
         likes_query = Like.query(Like.post == self.key)
         num_likes = likes_query.count()
+        if num_likes == 1:
+            text = "like"
+        else:
+            text = "likes"
+        like_count = "{} {}".format(num_likes, text)
 
         user = self.user.get()
 
         return utils.render_str('post.html',
                                 post=self,
                                 author=user,
-                                comment_count=num_comments,
-                                like_count=num_likes)
+                                comment_count=comment_count,
+                                like_count=like_count)
 
     def get_comments(self):
         """queries the datastore for comments on this post"""
