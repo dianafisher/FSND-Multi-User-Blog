@@ -27,7 +27,7 @@
         {% if user.key.id() == owner.key.id() %}
         <div class="btn-group">
             <!-- <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button> -->
-            <a href="/{{post.key.id()}}/edit" class="btn-link"><button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button></a>
+            <a href="/{{post.key.id()}}/edit" class="btn-link"><button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button></a>
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
         {% else %}

@@ -1,5 +1,4 @@
 {% block content %}
-<!-- <div class="row"> -->
     <div class="col-12 card" data-id="{{post.key.id()}}">
         <div class="card-title">
             <h2>{{post.subject}}</h2>
@@ -13,18 +12,5 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="box-content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="post-content">
-                        <pre class="post-content">{{post.content | safe }}</pre>
-                        <a href="/{{post.key.id()}}" class="btn-link"><h2>more ...</h2></a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
-<!-- </div> -->
-
 {% endblock %}
-
