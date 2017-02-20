@@ -31,8 +31,11 @@
         </div>
         {% else %}
         <div class="btn-group">
-            <button class="btn btn-white" name="like-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+            {% if has_liked %}
             <button class="btn btn-white" name="unlike-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Unlike</button>
+            {% else %}
+            <button class="btn btn-white" name="like-post" data-id="{{post.key.id()}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</button>
+            {% endif %}
             <div class="error">{{like_error}}</div>
         </div>
         {% endif %}

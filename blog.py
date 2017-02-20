@@ -361,8 +361,14 @@ class PostHandler(Handler):
         owner_id = owner.key.id()
         user_id = self.user.key.id()
 
+        # check if the current user has liked this post
+        has_liked = post.is_liked_by(self.user)
+
         # create a dictionary to hold any error messages
-        params = dict(post=post, comments=comments, owner=owner)
+        params = dict(post=post,
+                      comments=comments,
+                      owner=owner,
+                      has_liked=has_liked)
 
         # print 'owner: {}'.format(owner)
         self.render("permalink.html", **params)
@@ -493,19 +499,19 @@ class LikePostHandler(Handler):
         post = Post.get_by_id(int(post_id))
         if post:
 
-            # get all likes for this post
-            query = Like.query(Like.post == post.key)
-            results = query.get()
+            # # get all likes for this post
+            # query = Like.query(Like.post == post.key)
+            # results = query.get()
 
-            q = query.filter(Like.user == self.user.key)
+            # q = query.filter(Like.user == self.user.key)
 
-            result = q.fetch()
-            print "result = {}".format(result)
+            # result = q.fetch()
+            # print "result = {}".format(result)
 
-            """this user has already liked this post,
-            so don't let them like it again."""
+            # """this user has already liked this post,
+            # so don't let them like it again."""
 
-            if result:
+            if post.is_liked_by(self.user):
 
                 # get the comments
                 comments = post.get_comments()

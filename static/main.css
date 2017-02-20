@@ -798,13 +798,16 @@ header a:hover, a:focus {
   padding-right: 5px;
 }
 
+.post-username {
+  text-transform: uppercase;
+}
+
 .post-date {
     /*padding-left: 5px;*/
     text-align: right;
     /*padding-top: 10px;*/
 }
 
-/* match all i that are descendents of .post-date */
 .post-date i {
   padding-right: 5px;
 }

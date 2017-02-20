@@ -60,3 +60,14 @@ class Post(ndb.Model):
         owner = self.user.get()
         owner_id = owner.key.id()
         return owner_id
+
+    def is_liked_by(self, user):
+        # get all likes for this post
+        query = Like.query(Like.post == self.key)
+        results = query.get()
+
+        q = query.filter(Like.user == user.key)
+
+        result = q.fetch()
+        # print "result = {}".format(result)
+        return result
