@@ -26,7 +26,6 @@
     <div class="post-buttons">
         {% if user.key.id() == owner.key.id() %}
         <div class="btn-group">
-            <!-- <button class="btn btn-white" name="edit-post" data-id="{{post.key.id()}}"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button> -->
             <a href="/{{post.key.id()}}/edit" class="btn-link"><button class="btn btn-white"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button></a>
             <button class="btn btn-white" name="delete-post" data-id="{{post.key.id()}}"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
         </div>
@@ -53,7 +52,6 @@
                 <div class="comment-body">
                     <form role="form" class="form-inline" method="post" name="comment-form">
                         <textarea class="form-control" name="comment" placeholder="Write a comment... (press Enter to submit)"></textarea>
-                        <!-- <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-commenting-o" aria-hidden="true"></i> Post Comment</button> -->
                     </form>
                 </div>
             </div>

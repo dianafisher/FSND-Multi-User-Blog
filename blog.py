@@ -608,7 +608,7 @@ class WelcomeHandler(Handler):
 """
     UserHandler
 
-
+    Handler to show details of and posts by selected user.
 """
 
 

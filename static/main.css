@@ -736,6 +736,10 @@ header a:hover, a:focus {
   background: #01579B;
 }
 
+.nav-list .avatar {
+  width: 70px;
+}
+
 /*
  * Posts
  */
