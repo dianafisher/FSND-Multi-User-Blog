@@ -405,7 +405,13 @@ class PostHandler(Handler):
                 error_message="Post {} not found.".format(post_id))
 
 
-## TODO: Check for both subject and content
+"""
+    PostHandler
+
+    Handler editing blog posts.
+"""
+
+
 class EditPostHandler(Handler):
 
     def get(self, post_id):
@@ -413,9 +419,8 @@ class EditPostHandler(Handler):
             self.redirect('/')
             return
 
-        print "self.user = {}".format(self.user)
-
         post = Post.get_by_id(int(post_id))
+
         # show 404 error page if the post cannot be found.
         if not post:
             self.render_404(
@@ -428,8 +433,6 @@ class EditPostHandler(Handler):
         owner = post.user.get()
         owner_id = owner.key.id()
         user_id = self.user.key.id()
-
-        print 'owner_id = {}, user_id = {}'.format(owner_id, user_id)
 
         if owner_id is not user_id:
             params['permissions_error'] = "Only the original author may edit\
@@ -450,18 +453,28 @@ class EditPostHandler(Handler):
                 error_message="Post {} not found.".format(post_id))
             return
         else:
+            subject = None
+            content = None
+
             subject = self.request.get('subject')
             content = self.request.get('content')
 
-            # print "editing post to {}, {}".format(subject, content)
-            post.subject = subject
-            post.content = content
+            if subject and content:
+                # update the post
+                post.subject = subject
+                post.content = content
 
-            # save the new values
-            post.put()
+                # save the new values
+                post.put()
 
-            # redirect back to the post page
-            self.redirect('/{}'.format(post_id))
+                # redirect back to the post page
+                self.redirect('/{}'.format(post_id))
+
+            else:
+                error = "subject and content, please!"
+                self.render("editpost.html",
+                            post=post,
+                            error=error)
 
 
 class LikePostHandler(Handler):
