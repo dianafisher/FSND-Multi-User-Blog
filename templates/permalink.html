@@ -23,6 +23,7 @@
     </div>
 </div>
 <div class="row">
+    {% if user %}
     <div class="post-buttons">
         {% if user.key.id() == owner.key.id() %}
         <div class="btn-group">
@@ -41,6 +42,7 @@
         </div>
         {% endif %}
     </div>
+    {% endif %}
 </div>
 
 <div class="row">
@@ -52,6 +54,7 @@
                 {% for comment in comments %}
                     {{ comment.render(user) | safe }}
                 {% endfor %}
+            {% if user %}
             <div class="row">
                 <div class="comment-body">
                     <form role="form" class="form-inline" method="post" name="comment-form">
@@ -59,6 +62,11 @@
                     </form>
                 </div>
             </div>
+            {% else %}
+            <div class="row">
+                <p>Log in to post a comment.</p>
+            </div>
+            {% endif %}
             <div class="row"></div>
         </div>
     </div>

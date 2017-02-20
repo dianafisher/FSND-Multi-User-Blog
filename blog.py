@@ -342,11 +342,9 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
-        # print "user = {}".format(self.user)
-        # if no signed in user, redirect to the login page
-        if not self.user:
-            self.redirect('/login')
-            return
+        # if not self.user:
+        #     self.redirect('/login')
+        #     return
 
         post = Post.get_by_id(int(post_id))
 
@@ -360,12 +358,15 @@ class PostHandler(Handler):
         comments = post.get_comments()
 
         owner = post.user.get()
-
         owner_id = owner.key.id()
-        user_id = self.user.key.id()
 
-        # check if the current user has liked this post
-        has_liked = post.is_liked_by(self.user)
+        has_liked = False
+        # the following code is for logged in users only..
+        if self.user:
+            user_id = self.user.key.id()
+
+            # check if the current user has liked this post
+            has_liked = post.is_liked_by(self.user)
 
         # create a dictionary to hold any error messages
         params = dict(post=post,
