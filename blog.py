@@ -506,8 +506,9 @@ class LikePostHandler(Handler):
         self.redirect_after_delay('/{}'.format(post_id))
 
     def post(self, post_id):
+        # if no signed in user, redirect to the login page
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
             return
 
         """if this user has already liked this post,
@@ -553,8 +554,9 @@ class UnlikePostHandler(Handler):
         self.redirect_after_delay('/{}'.format(post_id))
 
     def post(self, post_id):
+        # if no signed in user, redirect to the login page
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
 
         post = Post.get_by_id(int(post_id))
         if post:

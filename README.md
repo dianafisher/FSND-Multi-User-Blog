@@ -78,20 +78,32 @@
 ###Edit Post Handler
     - Path: '/{post-id}/edit'
     - Method: GET
-    - Parameters:
-    - Description:
+    - Parameters: None
+    - Description: Renders the edit post page.  If no logged in user, redirects to the login page.
+
+    - Method: POST
+    - Parameters: subject, content
+    - Description: Updates the subject and/or content of the post.  If no logged in user, redirects to the login page.
 ---
 ###Like Post Handler
     - Path: '/{post-id}/like'
     - Method: GET
-    - Parameters:
-    - Description:
+    - Parameters: None
+    - Description: Redirects to the post page.
+
+    - Method: POST
+    - Parameters: None
+    - Description: Creates a new Like instance for the specified post.  If no logged in user, redirects to the login page.
 ---
 ###Unlike Post Handler
     - Path: '/{post-id}/unlike'
     - Method: GET
-    - Parameters:
-    - Description:
+    - Parameters: None
+    - Description: Redirects to the post page
+
+    - Method: POST
+    - Parameters: None
+    - Description: Deletes the Like instace for the specified post.  If no logged in user, redirects to the login page.
 ---
 ###Edit Comment Handler
     - Path: '/comment/{comment-id}/edit'
@@ -106,7 +118,11 @@
 ###Delete Comment Handler
     - Path: '/comment/{comment-id}/delete'
     - Method: GET
-    - Parameters:
+    - Parameters: None
+    - Description: Redirects to the post page
+
+    - Method: POST
+    - Parameters: None
     - Description:
 ---
 ###User Hander
