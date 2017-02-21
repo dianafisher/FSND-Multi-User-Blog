@@ -3,12 +3,12 @@
 ## Set-Up Instructions
 
 ##Handlers
-- **Front Handler**
+- ###Front Handler
     - Path: '/'
     - Method: GET
     - Parameters: None
     - Description: Lists all blog posts with most recent first.
-
+---
 - **Login Handler**
     - Path: '/login'
     - Method: GET
@@ -64,6 +64,36 @@
     - Method: DELETE
     - Parameters: None
     - Description: Deletes the selected post.  If no user is logged in, redirects to the login page.
+
+- **Edit Post Handler**
+    - Path: '/{post-id}/edit'
+    - Method: GET
+    - Parameters:
+    - Description:
+
+- **Like Post Handler**
+    - Path: '/{post-id}/like'
+    - Method: GET
+    - Parameters:
+    - Description:
+
+- **Unlike Post Handler**
+    - Path: '/{post-id}/unlike'
+    - Method: GET
+    - Parameters:
+    - Description:
+
+- **Unlike Post Handler**
+    - Path: '/{post-id}/unlike'
+    - Method: GET
+    - Parameters:
+    - Description:
+
+- **Unlike Post Handler**
+    - Path: '/{post-id}/unlike'
+    - Method: GET
+    - Parameters:
+    - Description:
 
 - **User Hander**
     - Path: 'user/{user-id}'
