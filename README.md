@@ -3,7 +3,8 @@
 ## Set-Up Instructions
 
 ##Handlers
-- ###Front Handler
+
+###Front Handler
     - Path: '/'
     - Method: GET
     - Parameters: None
