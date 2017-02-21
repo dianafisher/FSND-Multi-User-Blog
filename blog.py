@@ -341,7 +341,7 @@ class NewPostHandler(Handler):
 
 
 class PostHandler(Handler):
-
+    # get method renders the specified post in its own page
     def get(self, post_id):
 
         post = Post.get_by_id(int(post_id))
@@ -357,7 +357,7 @@ class PostHandler(Handler):
         # print 'owner: {}'.format(owner)
         self.render("permalink.html", **params)
 
-    """ Utility method to create params dictionary """
+    # create_params method is a utility method to create template parameters
     def create_params(self, post):
 
         # get the comments
@@ -377,6 +377,7 @@ class PostHandler(Handler):
                       has_liked=has_liked)
         return params
 
+    # post method creates a Comment instance for the specfied post.
     def post(self, post_id):
 
         # if no signed in user, redirect to the login page
@@ -407,6 +408,7 @@ class PostHandler(Handler):
             params['comment_error'] = "Comment text cannot be emtpy."
             self.render("permalink.html", **params)
 
+    # delete method deletes the specified Post instance
     def delete(self, post_id):
         # redirect to login page if not logged in
         if not self.user:
@@ -502,6 +504,7 @@ class EditPostHandler(Handler):
 
 class LikePostHandler(Handler):
 
+    # get method just redirects to post page
     def get(self, post_id):
         self.redirect_after_delay('/{}'.format(post_id))
 
@@ -558,9 +561,11 @@ class LikePostHandler(Handler):
 
 class UnlikePostHandler(Handler):
 
+    # get method just redirects to post page
     def get(self, post_id):
         self.redirect_after_delay('/{}'.format(post_id))
 
+    # post method deletes the Like entity for the specified post
     def post(self, post_id):
         # if no signed in user, redirect to the login page
         if not self.user:
@@ -583,17 +588,38 @@ class UnlikePostHandler(Handler):
                 error_message="Post {} not found.".format(post_id))
 
 """
-    EditCommentHandler
+    CommentHandler
+"""
 
-    Handler for editing comments.
+
+class CommentsHandler(Handler):
+
+    # get method returns all comments for a post
+    def get(self, post_id):
+        if not self.user:
+            self.redirect('/login')
+
+        post = Post.get_by_id(int(post_id))
+        if post:
+            # get the comments for this post
+            comments = post.get_comments()
+            self.render("comments.html", comments=comments)
+        else:
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
+
+"""
+    EditCommentHandler
 """
 
 
 class EditCommentHandler(Handler):
 
+    # get method just redirects to post page
     def get(self, post_id):
         self.redirect_after_delay('/{}'.format(post_id))
 
+    # post method will update the comment text
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
@@ -612,16 +638,16 @@ class EditCommentHandler(Handler):
 
 """
     DeleteCommentHandler
-
-    Handler for deleting comments.
 """
 
 
 class DeleteCommentHandler(Handler):
 
+    # get method just redirects to post page
     def get(self, post_id):
         self.redirect_after_delay('/{}'.format(post_id))
 
+    # post method deletes the specified comment from the datastore
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
@@ -683,6 +709,10 @@ class UserHandler(Handler):
             posts = query.fetch()
             self.render('user.html', u=u, posts=posts, user=self.user)
 
+"""
+    AvatarHandler
+"""
+
 
 class AvatarHandler(Handler):
 
@@ -722,6 +752,7 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/([0-9]+)/edit', EditPostHandler),
                                ('/([0-9]+)/like', LikePostHandler),
                                ('/([0-9]+)/unlike', UnlikePostHandler),
+                               ('/([0-9]+)/comments', CommentsHandler),
                                ('/comment/([0-9]+)/edit', EditCommentHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
