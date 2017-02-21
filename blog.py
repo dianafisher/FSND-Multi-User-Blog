@@ -399,7 +399,8 @@ class PostHandler(Handler):
             # reload the page
             self.redirect_after_delay('/{}'.format(post.key.id()))
         else:
-            self.error(404)
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
 
     def delete(self, post_id):
         # redirect to login page if not logged in
@@ -416,9 +417,9 @@ class PostHandler(Handler):
 
 
 """
-    PostHandler
+    EditPostHandler
 
-    Handler editing blog posts.
+    Handler for editing blog posts.
 """
 
 
@@ -487,6 +488,12 @@ class EditPostHandler(Handler):
                             post=post,
                             error=error)
 
+"""
+    LikePostHandler
+
+    Handler for liking blog posts.
+"""
+
 
 class LikePostHandler(Handler):
 
@@ -528,6 +535,12 @@ class LikePostHandler(Handler):
             self.render_404(
                 error_message="Post {} not found.".format(post_id))
 
+"""
+    UnlikePostHandler
+
+    Handler for unliking blog posts.
+"""
+
 
 class UnlikePostHandler(Handler):
 
@@ -554,6 +567,12 @@ class UnlikePostHandler(Handler):
             self.render_404(
                 error_message="Post {} not found.".format(post_id))
 
+"""
+    EditCommentHandler
+
+    Handler for editing comments.
+"""
+
 
 class EditCommentHandler(Handler):
 
@@ -575,6 +594,12 @@ class EditCommentHandler(Handler):
         else:
             self.render_404(
                 error_message="Comment {} not found.".format(comment_id))
+
+"""
+    DeleteCommentHandler
+
+    Handler for deleting comments.
+"""
 
 
 class DeleteCommentHandler(Handler):
