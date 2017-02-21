@@ -105,23 +105,35 @@
     - Parameters: None
     - Description: Deletes the Like instace for the specified post.  If no logged in user, redirects to the login page.
 ---
+###Comments Handler
+    - Path: /{post-id}/comments
+    - Method: GET
+    - Parameters: None
+    - Description: Lists all comments for a post.
+---
 ###Edit Comment Handler
     - Path: '/comment/{comment-id}/edit'
     - Method: POST
     - Parameters: comment-edit
-    - Description: Updates comment with new text.
+    - Description: Updates comment with new text.  If no logged in user, redirects to the login page.
 ---
 ###Delete Comment Handler
     - Path: '/comment/{comment-id}/delete'
     - Method: POST
     - Parameters: None
-    - Description:
+    - Description: Deletes specified comment.  If no logged in user, redirects to the login page.
 ---
-###User Hander
+###User Handler
     - Path: 'user/{user-id}'
     - Method: GET
     - Parameters: None
     - Description: Displays avatar and posts written by the specified user.
+---
+###Users Handler
+    - Path: /users
+    - Method: GET
+    - Parameters: None
+    - Description: Lists name and avatar of all users in the system.
 ---
 ###Avatars Handler
     - Path: '/avatars'
