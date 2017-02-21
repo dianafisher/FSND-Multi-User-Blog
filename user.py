@@ -35,9 +35,9 @@ def users_key(group='default'):
 
 def get_avatar_path():
     index = random.randint(0, 115)
-    print 'index: {}'.format(index)
+    # print 'index: {}'.format(index)
     path = '/static/svg/user_avatar_{}.svg'.format(index)
-    print 'path: {}'.format(path)
+    # print 'path: {}'.format(path)
     return path
 
 

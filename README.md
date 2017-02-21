@@ -107,20 +107,12 @@
 ---
 ###Edit Comment Handler
     - Path: '/comment/{comment-id}/edit'
-    - Method: GET
-    - Parameters: None
-    - Description: Redirects to the post page.
-
     - Method: POST
     - Parameters: comment-edit
     - Description: Updates comment with new text.
 ---
 ###Delete Comment Handler
     - Path: '/comment/{comment-id}/delete'
-    - Method: GET
-    - Parameters: None
-    - Description: Redirects to the post page
-
     - Method: POST
     - Parameters: None
     - Description:

@@ -108,7 +108,6 @@ class Handler(webapp2.RequestHandler):
         logging.exception(exception)
 
         # Set a custom message.
-        # self.response.write('An error occurred.')
         self.render("500.html")
 
         # If the exception is a HTTPException, use its error code.
@@ -631,24 +630,37 @@ class CommentsHandler(Handler):
 
 class EditCommentHandler(Handler):
 
-    # get method just redirects to post page
-    def get(self, post_id):
-        self.redirect_after_delay('/{}'.format(post_id))
-
     # post method will update the comment text
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
+
         if comment:
-            text = self.request.get('comment-edit')
-            comment.content = text
-            comment.put()
+            # check that the signed in user is owns this comment
+            owner = comment.user.get()
+            owner_id = owner.key.id()
+            user_id = self.user.key.id()
 
             post = comment.post.get()
-            post_id = post.key.id()
+            if owner_id is not user_id:
+                # create a dictionary to hold any error messages
+                params = dict(post=post,
+                              comments=post.get_comments(),
+                              owner=post.user.get())
 
-            # redirect back to the post page
-            self.redirect_after_delay('/{}'.format(post_id))
+                params['error'] = "Cannot edit another user's comment."
+                self.render("permalink.html", **params)
+
+            else:
+                # update the comment
+                text = self.request.get('comment-edit')
+                comment.content = text
+                comment.put()
+                post_id = post.key.id()
+
+                # redirect back to the post page
+                self.redirect_after_delay('/{}'.format(post_id))
         else:
+            # comment not found
             self.render_404(
                 error_message="Comment {} not found.".format(comment_id))
 
@@ -659,20 +671,32 @@ class EditCommentHandler(Handler):
 
 class DeleteCommentHandler(Handler):
 
-    # get method just redirects to post page
-    def get(self, post_id):
-        self.redirect_after_delay('/{}'.format(post_id))
-
     # post method deletes the specified comment from the datastore
     def post(self, comment_id):
         comment = Comment.get_by_id(int(comment_id))
         if comment:
             post = comment.post.get()
-            # print "post = {}".format(post)
-            post_id = post.key.id()
-            comment.key.delete()
-            # redirect to the post page
-            self.redirect_after_delay('/{}'.format(post_id))
+
+            # check that the signed in user is owns this comment
+            owner = comment.user.get()
+            owner_id = owner.key.id()
+            user_id = self.user.key.id()
+
+            if owner_id is not user_id:
+                # create a dictionary to hold any error messages
+                params = dict(post=post,
+                              comments=post.get_comments(),
+                              owner=post.user.get())
+
+                params['error'] = "Cannot delete another user's comment."
+                self.render("permalink.html", **params)
+
+            else:
+                # delete the comment
+                post_id = post.key.id()
+                comment.key.delete()
+                # redirect to the post page
+                self.redirect_after_delay('/{}'.format(post_id))
         else:
             self.render_404(
                 error_message="Comment {} not found.".format(comment_id))
