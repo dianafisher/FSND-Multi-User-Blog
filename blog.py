@@ -342,9 +342,6 @@ class NewPostHandler(Handler):
 class PostHandler(Handler):
 
     def get(self, post_id):
-        # if not self.user:
-        #     self.redirect('/login')
-        #     return
 
         post = Post.get_by_id(int(post_id))
 
@@ -354,30 +351,33 @@ class PostHandler(Handler):
                 error_message="Post {} not found.".format(post_id))
             return
 
+        params = self.create_params(post)
+
+        # print 'owner: {}'.format(owner)
+        self.render("permalink.html", **params)
+
+    """ Utility method to create params dictionary """
+    def create_params(self, post):
+
         # get the comments
         comments = post.get_comments()
-
         owner = post.user.get()
-        owner_id = owner.key.id()
-
         has_liked = False
-        # the following code is for logged in users only..
+        # check if the logged in user has liked this post
         if self.user:
             user_id = self.user.key.id()
 
             # check if the current user has liked this post
             has_liked = post.is_liked_by(self.user)
 
-        # create a dictionary to hold any error messages
         params = dict(post=post,
                       comments=comments,
                       owner=owner,
                       has_liked=has_liked)
-
-        # print 'owner: {}'.format(owner)
-        self.render("permalink.html", **params)
+        return params
 
     def post(self, post_id):
+
         # if no signed in user, redirect to the login page
         if not self.user:
             self.redirect('/login')
@@ -391,6 +391,9 @@ class PostHandler(Handler):
 
         text = self.request.get('comment')
 
+        if len(text) == 0:
+            text = None
+
         if post and text:
             # create new comment.
             comment = Comment.new_comment(user=self.user.key,
@@ -399,8 +402,9 @@ class PostHandler(Handler):
             # reload the page
             self.redirect_after_delay('/{}'.format(post.key.id()))
         else:
-            self.render_404(
-                error_message="Post {} not found.".format(post_id))
+            params = self.create_params(post)
+            params['comment_error'] = "Comment text cannot be emtpy."
+            self.render("permalink.html", **params)
 
     def delete(self, post_id):
         # redirect to login page if not logged in
