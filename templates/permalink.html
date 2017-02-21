@@ -23,6 +23,7 @@
     </div>
 </div>
 <div class="row">
+    <div class="error">{{error}}</div>
     {% if user %}
     <div class="post-buttons">
         {% if user.key.id() == owner.key.id() %}

@@ -511,22 +511,30 @@ class LikePostHandler(Handler):
             self.redirect('/login')
             return
 
-        """if this user has already liked this post,
-        then they should not be allowed to like it again"""
-
+        # get the post from the datastore
         post = Post.get_by_id(int(post_id))
         if post:
 
+            # get the comments
+            comments = post.get_comments()
+            owner = post.user.get()
+
+            # create a dictionary to hold any error messages
+            params = dict(post=post, comments=comments, owner=owner)
+
+            # Do not allow the author to like their own post.
+            owner = post.user.get()
+            owner_id = owner.key.id()
+            user_id = self.user.key.id()
+
+            if owner_id is user_id:
+                params['error'] = "You are not allowed to like your own post."
+                self.render("permalink.html", **params)
+                return
+
             if post.is_liked_by(self.user):
-
-                # get the comments
-                comments = post.get_comments()
-                owner = post.user.get()
-
-                # create a dictionary to hold any error messages
-                params = dict(post=post, comments=comments, owner=owner)
+                # Do not allow a user to like a post more than once.
                 params['like_error'] = "You have already liked this post."
-                # print 'params: {}'.format(params)
 
                 self.render("permalink.html", **params)
                 return
