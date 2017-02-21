@@ -54,7 +54,7 @@
 ---
 ###Post Handler
     - Path: '/{post-id}'
-    **Method: GET**
+    - **Method: GET**
     - Parameters: None
     - Description: Renders the page for this post along with comments and likes.  If no user is logged in, the comments are displayed but only logged in users may post additional comments.
 
