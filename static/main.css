@@ -878,3 +878,7 @@ textarea.form-control {
 .error-message .small {
   margin-bottom: 20px;
 }
+
+.avatars .row {
+  display: flex;
+}

@@ -2,6 +2,15 @@
 
 ## Set-Up Instructions
 
+## Files Included:
+- blog.py: Contains endpoints and overall logic for the site.
+- app.yaml: App configuration file.
+- utils.py: Contains helper functions.
+- post.py: Defines the Post entity.
+- user.py: Defines the User entity.
+- comment.py: Defines the Comment entity.
+- like.py: Defines the Like entity.
+
 ##Handlers
 
 ###Front Handler
@@ -54,7 +63,7 @@
 ---
 ###Post Handler
     - Path: '/{post-id}'
-    - **Method: GET**
+    - Method: GET
     - Parameters: None
     - Description: Renders the page for this post along with comments and likes.  If no user is logged in, the comments are displayed but only logged in users may post additional comments.
 
@@ -84,14 +93,18 @@
     - Parameters:
     - Description:
 ---
-###Unlike Post Handler
-    - Path: '/{post-id}/unlike'
+###Edit Comment Handler
+    - Path: '/comment/{comment-id}/edit'
     - Method: GET
-    - Parameters:
-    - Description:
+    - Parameters: None
+    - Description: Redirects to the post page.
+
+    - Method: POST
+    - Parameters: comment-edit
+    - Description: Updates comment with new text.
 ---
-###Unlike Post Handler
-    - Path: '/{post-id}/unlike'
+###Delete Comment Handler
+    - Path: '/comment/{comment-id}/delete'
     - Method: GET
     - Parameters:
     - Description:
