@@ -3,10 +3,16 @@
 {% block content %}
 
 <div class="row">
+{% if count > 0 %}
     {% for post in posts %}
         {{ post.render() | safe }}
     {% endfor %}
+{% else %}
+    <h2>No posts yet!</h2>
+{% endif %}
 </div>
+
+
 {% endblock %}
 
 {% block tail_script %}

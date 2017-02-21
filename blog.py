@@ -171,7 +171,8 @@ class FrontHandler(Handler):
 
     def get(self):
         posts = Post.query().order(-Post.created)
-        self.render("front.html", posts=posts)
+        count = posts.count()
+        self.render("front.html", count=count, posts=posts)
 
 
 """
@@ -641,6 +642,7 @@ class WelcomeHandler(Handler):
             # Get the posts authored by this user.
             query = Post.query(Post.user == self.user.key)
             posts = query.fetch()
+            print 'self.user: {}'.format(self.user)
             self.render('welcome.html', user=self.user, posts=posts)
         else:
             self.redirect('/signup')
@@ -676,7 +678,7 @@ class AvatarHandler(Handler):
 
     def get(self):
         avatars = []
-        for x in range(115):
+        for x in range(116):
             avatar = {}
             avatar['name'] = 'avatar_{}.svg'.format(x)
             avatar['url'] = '/static/svg/user_avatar_{}.svg'.format(x)

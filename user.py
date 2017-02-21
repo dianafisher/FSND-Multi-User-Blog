@@ -30,25 +30,15 @@ def users_key(group='default'):
     return ndb.Key('users', group)
 
 
-def make_gravatar(email):
-    # trim leading and trailing whitespace from email
-    trimmed = email.strip()
-    # force all characters to lowercase
-    lowercase = trimmed.lower()
-    # salt the result
-    salt = make_salt()
-    # md5 hash the final string with the salt
-    md5 = hashlib.md5(lowercase + salt).hexdigest()
-    # 'unicornify' the result
-    url = 'http://unicornify.appspot.com/avatar/{}?s=200'.format(md5)
-    return url
-
 """ Choose an avatar image randomly from the svg folder """
 
 
 def get_avatar_path():
-    index = random.randint(0, 119)
-    return '/static/svg/user_avatar_{}.svg'.format(index)
+    index = random.randint(0, 115)
+    print 'index: {}'.format(index)
+    path = '/static/svg/user_avatar_{}.svg'.format(index)
+    print 'path: {}'.format(path)
+    return path
 
 
 class User(ndb.Model):
@@ -70,11 +60,6 @@ class User(ndb.Model):
     @classmethod
     def register(cls, name, pw, email=None):
         pw_hash = make_pw_hash(name, pw)
-        # if email:
-        #     gravatar = make_gravatar(email)
-        # else:
-        #     gravatar = make_gravatar("{}@thisblog.com".format(name))
-
         return User(parent=users_key(),
                     username=name,
                     password_hash=pw_hash,
