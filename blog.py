@@ -454,8 +454,7 @@ class EditPostHandler(Handler):
         user_id = self.user.key.id()
 
         if owner_id is not user_id:
-            params['permissions_error'] = "Only the original author may edit\
-            this post."
+            params['permissions_error'] = "Only the original author may edit this post."
             self.render("postpermissionserror.html", **params)
         else:
             self.render("editpost.html", **params)
@@ -472,6 +471,16 @@ class EditPostHandler(Handler):
                 error_message="Post {} not found.".format(post_id))
             return
         else:
+            # check that the current user is the owner of the post.
+            owner = post.user.get()
+            owner_id = owner.key.id()
+            user_id = self.user.key.id()
+            params = dict(post=post)
+
+            if owner_id is not user_id:
+                params['permissions_error'] = "Only the original author may edit this post."
+                self.render("postpermissionserror.html", **params)
+
             subject = None
             content = None
 
