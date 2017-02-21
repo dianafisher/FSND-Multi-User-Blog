@@ -671,7 +671,7 @@ class UserHandler(Handler):
             # Get the posts authored by this user.
             query = Post.query(Post.user == u.key)
             posts = query.fetch()
-            self.render('user.html', u=u, posts=posts)
+            self.render('user.html', u=u, posts=posts, user=self.user)
 
 
 class AvatarHandler(Handler):
