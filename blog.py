@@ -573,19 +573,26 @@ class UnlikePostHandler(Handler):
 
         post = Post.get_by_id(int(post_id))
         if post:
-            # print post.key
             query = Like.query(Like.post == post.key)
             like = query.get()
-
+        else:
+            self.render_404(
+                error_message="Post {} not found.".format(post_id))
         if like:
-            # print "post = {}".format(post)
             post_id = post.key.id()
             like.key.delete()
             # redirect to the post page
             self.redirect_after_delay('/{}'.format(post_id))
         else:
-            self.render_404(
-                error_message="Post {} not found.".format(post_id))
+            # create a dictionary to hold any error messages
+            params = dict(post=post,
+                          comments=post.get_comments(),
+                          owner=post.user.get())
+
+            # user has not liked this post, so show an error.
+            params['error'] = "Cannot unlike a post which has not been liked."
+            self.render("permalink.html", **params)
+
 
 """
     CommentHandler
@@ -709,6 +716,23 @@ class UserHandler(Handler):
             posts = query.fetch()
             self.render('user.html', u=u, posts=posts, user=self.user)
 
+
+"""
+    UsersHandler
+"""
+
+
+class UsersHandler(Handler):
+    # get method renders all users in the system.
+    def get(self):
+        if not self.user:
+            self.redirect('/login')
+            return
+
+        query = User.query()
+        users = query.fetch()
+        self.render("users.html", users=users)
+
 """
     AvatarHandler
 """
@@ -757,6 +781,7 @@ app = webapp2.WSGIApplication([('/', FrontHandler),
                                ('/comment/([0-9]+)/delete',
                                 DeleteCommentHandler),
                                ('/user/([0-9]+)', UserHandler),
+                               ('/users', UsersHandler),
                                ('/avatars', AvatarHandler)
                                ],
                               debug=True)
