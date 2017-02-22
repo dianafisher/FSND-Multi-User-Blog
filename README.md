@@ -1,6 +1,6 @@
 # FSND-Multi-User-Blog
 
-FSND-Multi-User-Blog is a multi-user blog site.  Signed in users may create blog posts and comment and like other users' posts.  Certain functionality such as editing or deleting blog posts is restricted to the user who originally wrote the post.
+FSND-Multi-User-Blog is a multi-user blog application.  Signed in users may create blog posts and comment and like other users' posts.  Certain functionality such as editing or deleting blog posts is restricted to the user who originally wrote the post.
 
 ## Language
 - Python
@@ -13,6 +13,12 @@ FSND-Multi-User-Blog is a multi-user blog site.  Signed in users may create blog
 - jinja2
 
 ## Set-Up Instructions
+- Download and install the Google Cloud SDK.  This can be found at [the Google Cloud Platform site](https://cloud.google.com/appengine/docs/python/download).
+- Install the gcloud component that includes the Python extension.
+- Create a new Cloud Platform Console project or retrieve the project ID of an existing project from the Google Cloud Platform Console.
+- Install and initialize the Google Cloud SDK.
+- To run the blog app locally, open a terminal and navigate to the directory containing the app.yaml file.  Type `dev_appserver.py app.yaml` to launch the development server.  Then open a web browser and go to http://localhost:8000.
+- To deploy the app, run the following command from within the directory containing the app.yaml file: `glcoud app deploy`.  Then type `gcloud app browse` to launch a browser window.
 
 ## Files Included:
 - blog.py: Contains endpoints and overall logic for the site.
