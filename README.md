@@ -1,5 +1,17 @@
 # FSND-Multi-User-Blog
 
+FSND-Multi-User-Blog is a multi-user blog site.  Signed in users may create blog posts and comment and like other users' posts.  Certain functionality such as editing or deleting blog posts is restricted to the user who originally wrote the post.
+
+## Language
+- Python
+
+## APIs
+- NDB Datastore API
+
+## Dependencies
+- webapp2
+- jinja2
+
 ## Set-Up Instructions
 
 ## Files Included:
